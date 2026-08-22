@@ -31,6 +31,8 @@
     content="Rock pop nacional e internacional. Duo acústico, trio ou banda completa para casamentos, eventos corporativos e festas em BH.">
   <meta name="twitter:image" content="https://www.bandawalkmachine.com.br/og.jpg">
   <script src="./support.js"></script>
+  <!-- Elfsight Instagram Platform -->
+  <script src="https://elfsightcdn.com/platform.js" async></script>
 </head>
 
 <body>
@@ -819,7 +821,7 @@
 
       <section id="video" style="position:relative; z-index:10; max-width:1180px; margin:0 auto; padding:110px 24px">
         <div
-          style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:40px">
+          style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:28px">
           <div>
             <div data-wm-reveal=""
               style="display:flex; align-items:center; gap:12px; margin-bottom:26px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:#C22C2C">
@@ -833,6 +835,22 @@
             style="display:inline-flex; align-items:center; padding:12px 24px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03); font-size:13px; font-weight:500; color:#f7f7f8"
             style-hover="border-color:#C22C2C;background:rgba(194,44,44,.12)">Canal no YouTube</a>
         </div>
+
+        <!-- Seletor de Formato: Banda Completa ou Trio Acústico -->
+        <div data-wm-reveal="" style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:22px">
+          <button data-wm-video-tab="banda" type="button" aria-selected="true"
+            style="display:inline-flex; align-items:center; gap:8px; padding:10px 22px; border-radius:999px; border:1px solid #2F6FE0; background:#2F6FE0; color:#ffffff; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; font-weight:600; cursor:pointer; box-shadow:0 0 24px rgba(47,111,224,.5); transition:all .25s ease">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+            Banda Completa
+          </button>
+          <button data-wm-video-tab="trio" type="button" aria-selected="false"
+            style="display:inline-flex; align-items:center; gap:8px; padding:10px 22px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03); color:#c4c4cc; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; font-weight:600; cursor:pointer; transition:all .25s ease"
+            style-hover="border-color:rgba(47,111,224,.6);color:#ffffff">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            Trio Acústico
+          </button>
+        </div>
+
         <div data-wm-reveal="" data-wm-player=""
           style="position:relative; aspect-ratio:16/9; border-radius:24px; overflow:hidden; border:1px solid rgba(255,255,255,.08); box-shadow:0 30px 80px rgba(0,0,0,.7); background:#000">
           <img data-wm-poster="" src="https://i.ytimg.com/vi/japEfLFX23U/maxresdefault.jpg" alt="Walkmachine ao vivo"
@@ -889,9 +907,35 @@
           </div>
           <div
             style="display:flex; align-items:center; gap:12px; margin-top:6px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#c4c4cc">
-            <span style="width:18px; height:1px; background:rgba(255,255,255,.22)"></span><span>Trechos de shows ·
-              playlist com 40 vídeos</span>
+            <span style="width:18px; height:1px; background:rgba(255,255,255,.22)"></span><span data-wm-playlist-label="">Trechos de shows · playlist Banda Completa</span>
           </div>
+        </div>
+      </section>
+
+      <!-- Instagram Feed da Banda Walkmachine -->
+      <section id="instagram" style="position:relative; z-index:10; max-width:1180px; margin:0 auto; padding:80px 24px 60px">
+        <div
+          style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:34px">
+          <div>
+            <div data-wm-reveal=""
+              style="display:flex; align-items:center; gap:12px; margin-bottom:20px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:#E1306C">
+              <span style="width:24px; height:1px; background:#E1306C"></span><span>Instagram</span>
+            </div>
+            <h2 data-wm-reveal=""
+              style="margin:0; font-family:'Barlow Condensed',Impact,sans-serif; font-weight:600; font-size:clamp(32px,4.4vw,60px); line-height:1.04; letter-spacing:-.03em; text-transform:uppercase; background:linear-gradient(180deg,#ffffff,#a1a1aa 62%,#e4e4e7); -webkit-background-clip:text; background-clip:text; color:transparent">
+              Bastidores e novidades</h2>
+          </div>
+          <a data-wm-reveal="" href="{{ instaLink }}" target="_blank" rel="noreferrer"
+            style="display:inline-flex; align-items:center; gap:10px; padding:12px 24px; border-radius:999px; border:1px solid rgba(225,48,108,.35); background:rgba(225,48,108,.08); font-size:13px; font-weight:500; color:#fff; transition:all .25s ease"
+            style-hover="border-color:#E1306C;background:rgba(225,48,108,.2);box-shadow:0 0 24px rgba(225,48,108,.4)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            <span>@bandawalkmachine</span>
+          </a>
+        </div>
+
+        <div data-wm-reveal="" style="position:relative; border-radius:24px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.02); padding:16px; box-shadow:0 24px 70px rgba(0,0,0,.6)">
+          <!-- Elfsight Instagram Feed | Untitled Instagram Feed -->
+          <div class="elfsight-app-0e9d77e5-6e18-4769-9168-477d0185d394" data-elfsight-app-lazy></div>
         </div>
       </section>
 
@@ -1129,21 +1173,64 @@ class Component extends DCLogic {
     const box = document.querySelector("[data-wm-player]");
     const track = document.querySelector("[data-wm-track]");
     if (!box || !track) return;
-    const thumbs = Array.from(track.querySelectorAll("[data-wm-thumb]"));
-    if (!thumbs.length) return;
-    const LIST = "PL9vMcH7Da0ZBAPhJgGoynAlzgNT56qkUK";
-    let current = thumbs[0].getAttribute("data-wm-thumb");
 
-    const mark = (id) => thumbs.forEach((t) => t.setAttribute("aria-current", String(t.getAttribute("data-wm-thumb") === id)));
+    const playlists = {
+      banda: {
+        listId: "PL9vMcH7Da0ZBAPhJgGoynAlzgNT56qkUK",
+        label: "Trechos de shows · playlist Banda Completa (40 vídeos)",
+        videos: [
+          { id: "japEfLFX23U", dur: "3:03", titulo: "Walkmachine ao vivo" },
+          { id: "fyh4OYJn2h0", dur: "1:30", titulo: "Trecho show Walkmachine" },
+          { id: "HLhp0Y3mlGs", dur: "1:40", titulo: "Walkmachine ao vivo" },
+          { id: "WkeVdXD0R7Q", dur: "1:14", titulo: "Trecho de show" },
+          { id: "m-ijcy2MDGE", dur: "2:08", titulo: "Walkmachine ao vivo" },
+          { id: "jwtn8pkZxzM", dur: "1:01", titulo: "Trecho de show" },
+          { id: "PmeH3D8OWLk", dur: "1:47", titulo: "Walkmachine ao vivo" },
+          { id: "dIFoxUYqSpM", dur: "2:47", titulo: "Walkmachine ao vivo" },
+          { id: "htlByHNNrr4", dur: "2:15", titulo: "Trecho de show" },
+          { id: "f-af-VQRlAw", dur: "0:51", titulo: "Walkmachine ao vivo" },
+          { id: "2ZpaLdV5-WQ", dur: "1:58", titulo: "Trecho de show" },
+          { id: "aebxljsHDmc", dur: "2:29", titulo: "Walkmachine ao vivo" }
+        ]
+      },
+      trio: {
+        listId: "PL9vMcH7Da0ZC4L0vWcxKdVCA2wJnNGk7A",
+        label: "Trechos de shows · playlist Trio Acústico Walkmachine",
+        videos: [
+          { id: "ysT0-loO_lM", dur: "1:35", titulo: "Zóio de Lula (Charlie Brown Jr)" },
+          { id: "ZU6TSrvQIfk", dur: "1:40", titulo: "What's Up (4 Non Blondes)" },
+          { id: "tWIqGB5i0Q0", dur: "1:50", titulo: "Bete Balanço / Mania de Você" },
+          { id: "9eMGSg5D8Xs", dur: "1:45", titulo: "Every Breath You Take (The Police)" },
+          { id: "R3MdoN-jR3w", dur: "1:30", titulo: "Hoje (Jota Quest)" },
+          { id: "BBxu45fACAQ", dur: "1:40", titulo: "Primeiros Erros (Capital Inicial)" },
+          { id: "meaMdvUKpJ4", dur: "1:35", titulo: "Amor Pra Recomeçar (Frejat)" },
+          { id: "KwJTNL2nWVo", dur: "1:45", titulo: "Por Você (Barão Vermelho)" }
+        ]
+      }
+    };
+
+    let activeCat = "banda";
+    let current = playlists.banda.videos[0].id;
 
     const poster = box.querySelector("[data-wm-poster]");
     const setPoster = (id) => { if (poster) poster.src = "https://i.ytimg.com/vi/" + id + "/maxresdefault.jpg"; };
+
+    const mark = (id) => {
+      const thumbs = Array.from(track.querySelectorAll("[data-wm-thumb]"));
+      thumbs.forEach((t) => {
+        const isCurrent = t.getAttribute("data-wm-thumb") === id;
+        t.setAttribute("aria-current", String(isCurrent));
+        t.style.borderColor = isCurrent ? "#2F6FE0" : "rgba(255,255,255,.08)";
+        t.style.boxShadow = isCurrent ? "0 0 20px rgba(47,111,224,.5)" : "none";
+      });
+    };
 
     const play = (id) => {
       current = id;
       mark(id);
       let frame = box.querySelector("iframe");
-      const src = "https://www.youtube-nocookie.com/embed/" + id + "?list=" + LIST + "&autoplay=1&rel=0&modestbranding=1&playsinline=1";
+      const listId = playlists[activeCat].listId;
+      const src = "https://www.youtube-nocookie.com/embed/" + id + "?list=" + listId + "&autoplay=1&rel=0&modestbranding=1&playsinline=1";
       if (!frame) {
         Array.from(box.children).forEach((c) => { c.style.display = "none"; });
         frame = document.createElement("iframe");
@@ -1157,11 +1244,57 @@ class Component extends DCLogic {
       frame.src = src;
     };
 
+    const renderThumbs = (cat) => {
+      const data = playlists[cat];
+      track.innerHTML = data.videos.map((v) => `
+        <button data-wm-thumb="${v.id}" type="button" aria-label="${v.titulo}" style="position:relative; flex:0 0 232px; scroll-snap-align:start; aspect-ratio:16/9; border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#0b0b0d; padding:0; cursor:pointer" class="wm-video-thumb">
+          <img src="https://i.ytimg.com/vi/${v.id}/mqdefault.jpg" alt="${v.titulo}" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.82; transition:opacity .35s ease, transform .6s cubic-bezier(.16,1,.3,1)" />
+          <span style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.72))"></span>
+          <span style="position:absolute; right:8px; bottom:8px; padding:3px 8px; border-radius:6px; background:rgba(9,9,11,.86); font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.06em; color:#f0f0f2">${v.dur}</span>
+        </button>
+      `).join("");
+
+      const metaLabel = document.querySelector("[data-wm-playlist-label]");
+      if (metaLabel) metaLabel.textContent = data.label;
+
+      const thumbs = Array.from(track.querySelectorAll("[data-wm-thumb]"));
+      thumbs.forEach((t) => t.addEventListener("click", () => play(t.getAttribute("data-wm-thumb"))));
+      mark(current);
+    };
+
+    // Tabs setup
+    const tabBtns = document.querySelectorAll("[data-wm-video-tab]");
+    tabBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const cat = btn.getAttribute("data-wm-video-tab");
+        if (cat === activeCat) return;
+        activeCat = cat;
+
+        tabBtns.forEach((b) => {
+          const isActive = b === btn;
+          b.setAttribute("aria-selected", String(isActive));
+          b.style.background = isActive ? "#2F6FE0" : "rgba(255,255,255,.03)";
+          b.style.borderColor = isActive ? "#2F6FE0" : "rgba(255,255,255,.12)";
+          b.style.color = isActive ? "#ffffff" : "#c4c4cc";
+          b.style.boxShadow = isActive ? "0 0 24px rgba(47,111,224,.5)" : "none";
+        });
+
+        current = playlists[cat].videos[0].id;
+        setPoster(current);
+        renderThumbs(cat);
+        track.scrollTo({ left: 0, behavior: "smooth" });
+
+        const frame = box.querySelector("iframe");
+        if (frame) play(current);
+      });
+    });
+
+    renderThumbs("banda");
     mark(current);
     setPoster(current);
-    const btn = box.querySelector("[data-wm-play]");
-    if (btn) btn.addEventListener("click", () => play(current));
-    thumbs.forEach((t) => t.addEventListener("click", () => play(t.getAttribute("data-wm-thumb"))));
+
+    const playBtn = box.querySelector("[data-wm-play]");
+    if (playBtn) playBtn.addEventListener("click", () => play(current));
 
     const step = () => Math.max(240, Math.round(track.clientWidth * 0.8));
     const prev = document.querySelector("[data-wm-prev]");
@@ -1327,7 +1460,18 @@ class Component extends DCLogic {
         { id: "cl-8", nome: "Retiro das Pedras", img: "assets/clientes/retiro-das-pedras.webp" },
         { id: "cl-9", nome: "US Motocas Point Bar", img: "assets/clientes/us-motocas.webp" },
         { id: "cl-10", nome: "Meu bHar Sion", img: "assets/clientes/meu-bhar.webp" },
-        { id: "cl-11", nome: "Cachoeira Dourada", img: "assets/clientes/cachoeira-dourada.webp" }
+        { id: "cl-11", nome: "Cachoeira Dourada", img: "assets/clientes/cachoeira-dourada.webp" },
+        { id: "cl-12", nome: "SEST SENAT", img: "assets/clientes/sest-senat.webp" }
+      ],
+      videosTrio: [
+        { id: "ysT0-loO_lM", dur: "1:35", titulo: "Zóio de Lula (Charlie Brown Jr)" },
+        { id: "ZU6TSrvQIfk", dur: "1:40", titulo: "What's Up (4 Non Blondes)" },
+        { id: "tWIqGB5i0Q0", dur: "1:50", titulo: "Bete Balanço / Mania de Você" },
+        { id: "9eMGSg5D8Xs", dur: "1:45", titulo: "Every Breath You Take (The Police)" },
+        { id: "R3MdoN-jR3w", dur: "1:30", titulo: "Hoje (Jota Quest)" },
+        { id: "BBxu45fACAQ", dur: "1:40", titulo: "Primeiros Erros (Capital Inicial)" },
+        { id: "meaMdvUKpJ4", dur: "1:35", titulo: "Amor Pra Recomeçar (Frejat)" },
+        { id: "KwJTNL2nWVo", dur: "1:45", titulo: "Por Você (Barão Vermelho)" }
       ],
       videos: [
         { id: "japEfLFX23U", dur: "3:03" },
