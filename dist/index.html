@@ -628,53 +628,50 @@
           transform: scale(1.03);
         }
 
-        @media (max-width: 768px) {
-          .wm-musico-card {
-            flex: 0 0 190px;
-          }
-        }
-
-        /* ---- responsivo ---- */
+        /* ---- RESPONSIVIDADE AVANÇADA (MOBILE & TABLET) ---- */
         @media (max-width: 1000px) {
           section {
             padding-left: 20px !important;
             padding-right: 20px !important;
           }
 
-          #banda>div:last-child {
+          #banda > div:last-child {
             grid-template-columns: minmax(0, 1fr) !important;
-            gap: 38px !important;
+            gap: 36px !important;
           }
 
-          #banda>div:last-child>div:last-child {
-            max-width: 420px;
+          #banda > div:last-child > div:last-child {
+            max-width: 440px;
             margin: 0 auto;
             width: 100%;
           }
 
-          #formatos>div:last-child,
-          #propostas>div:last-child {
+          #formatos > div:last-child,
+          #propostas > div:last-child {
             grid-template-columns: minmax(0, 1fr) !important;
+            gap: 18px !important;
           }
 
-          #rider>div {
+          #rider > div:first-of-type {
             grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
           }
 
-          #contato>div {
+          #faq > div:last-child {
             grid-template-columns: minmax(0, 1fr) !important;
+            gap: 32px !important;
           }
 
-          #shows>div:last-child {
+          #shows > div:last-child {
             grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-            grid-auto-rows: 150px !important;
+            grid-auto-rows: 160px !important;
+            gap: 12px !important;
           }
 
-          #shows>div:last-child>div {
+          #shows > div:last-child > div {
             grid-column: span 2 !important;
           }
 
-          #shows>div:last-child>div:first-child {
+          #shows > div:last-child > div:first-child {
             grid-row: span 2 !important;
           }
 
@@ -684,43 +681,63 @@
           }
         }
 
-        @media (max-width: 700px) {
+        @media (max-width: 768px) {
           section {
-            padding-top: 78px !important;
-            padding-bottom: 78px !important;
+            padding-top: 70px !important;
+            padding-bottom: 70px !important;
           }
 
-          #topo>div:last-child {
-            overflow-x: auto;
-            justify-content: flex-start !important;
-            scroll-snap-type: x mandatory;
-            padding-bottom: 10px;
-            -webkit-overflow-scrolling: touch;
+          #topo {
+            padding: 120px 16px 40px !important;
+            min-height: auto !important;
           }
 
-          #topo>div:last-child>div {
-            flex: 0 0 62vw !important;
-            scroll-snap-align: center;
+          #topo h1 {
+            font-size: clamp(34px, 8.5vw, 54px) !important;
+            line-height: 0.98 !important;
           }
 
-          #clientes>div:last-child>div {
-            flex: 0 1 calc(50% - 8px) !important;
+          #topo p {
+            font-size: 15px !important;
+            line-height: 1.55 !important;
+            margin-bottom: 28px !important;
           }
 
-          #rider>div {
-            grid-template-columns: minmax(0, 1fr) !important;
+          #topo [data-wm-reveal] {
+            gap: 10px !important;
+            margin-bottom: 36px !important;
+          }
+
+          #topo [data-wm-reveal] a {
+            padding: 12px 22px !important;
+            font-size: 13px !important;
+          }
+
+          .wm-musico-card {
+            flex: 0 0 185px !important;
+            border-radius: 16px !important;
+          }
+
+          .wm-cards-track {
+            gap: 12px !important;
+          }
+
+          #clientes > div:last-child {
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            gap: 10px !important;
           }
 
           #rider [style*="repeat(4,minmax"] {
             grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 10px !important;
           }
 
-          [data-wm-track]>button {
-            flex-basis: 74vw !important;
+          [data-wm-track] > button {
+            flex-basis: 70vw !important;
           }
 
           .wm-header-logo {
-            height: 42px !important;
+            height: 44px !important;
           }
 
           .wm-header-links {
@@ -728,16 +745,50 @@
           }
 
           .wm-floating-wa {
-            bottom: 20px;
-            right: 20px;
-            width: 58px;
-            height: 58px;
+            bottom: 20px !important;
+            right: 20px !important;
+            width: 58px !important;
+            height: 58px !important;
           }
 
           .wm-floating-wa-tooltip {
             display: none !important;
           }
+
+          #contato > div {
+            padding: 44px 20px !important;
+            border-radius: 24px !important;
+          }
+
+          #contato h2 {
+            font-size: clamp(28px, 7.5vw, 42px) !important;
+          }
+
+          #contato a {
+            width: 100% !important;
+            justify-content: center !important;
+            text-align: center !important;
+          }
         }
+
+        @media (max-width: 480px) {
+          #clientes > div:last-child {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 8px !important;
+          }
+
+          #rider [style*="repeat(4,minmax"] {
+            grid-template-columns: minmax(0, 1fr) !important;
+          }
+
+          #topo [data-wm-reveal] a {
+            width: 100% !important;
+            justify-content: center !important;
+            text-align: center !important;
+          }
+        }
+
+
 
         @keyframes wm-sweep {
           0% {
@@ -820,22 +871,16 @@
             <img class="wm-header-logo" src="assets/wordmark.png" alt="Walkmachine"
               style="height:60px; width:auto; display:block; filter:drop-shadow(0 4px 12px rgba(0,0,0,.6)); transition:transform .25s ease" />
           </a>
-          <div class="wm-header-links" style="display:flex; align-items:center; gap:26px; padding:0 24px">
-            <a href="#banda"
-              style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:#c4c4cc"
-              style-hover="color:#ffffff">Banda</a>
-            <a href="#shows"
-              style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:#c4c4cc"
-              style-hover="color:#ffffff">Shows</a>
-            <a href="#formatos"
-              style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:#c4c4cc"
-              style-hover="color:#ffffff">Formatos</a>
-            <a href="#propostas"
-              style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:#c4c4cc"
-              style-hover="color:#ffffff">Propostas</a>
-            <a href="#rider"
-              style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:#c4c4cc"
-              style-hover="color:#ffffff">Rider</a>
+          <div class="wm-header-links" style="display:flex; align-items:center; gap:20px; padding:0 18px">
+            <a href="#musicos" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#c4c4cc" style-hover="color:#ffffff">Integrantes</a>
+            <a href="#video" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#c4c4cc" style-hover="color:#ffffff">Vídeos</a>
+            <a href="#banda" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#c4c4cc" style-hover="color:#ffffff">Banda</a>
+            <a href="#clientes" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#c4c4cc" style-hover="color:#ffffff">Clientes</a>
+            <a href="#shows" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#c4c4cc" style-hover="color:#ffffff">Shows</a>
+            <a href="#formatos" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#c4c4cc" style-hover="color:#ffffff">Formatos</a>
+            <a href="#propostas" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#c4c4cc" style-hover="color:#ffffff">Propostas</a>
+            <a href="#rider" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#c4c4cc" style-hover="color:#ffffff">Rider</a>
+            <a href="#faq" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#c4c4cc" style-hover="color:#ffffff">FAQ</a>
           </div>
           <a href="{{ waLink }}" target="_blank" rel="noreferrer"
             style="display:inline-flex; align-items:center; gap:8px; padding:11px 22px; border-radius:999px; background:#2F6FE0; color:#fff; font-size:13px; font-weight:600; letter-spacing:-.01em; white-space:nowrap; box-shadow:0 0 16px rgba(47,111,224,.45); transition:all .25s ease"
