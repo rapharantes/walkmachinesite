@@ -141,6 +141,53 @@
     transform: scale(1.04);
   }
 
+  /* ---- Carrossel Contínuo de Músicos ---- */
+  @keyframes wm-cards-marquee {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
+  }
+  .wm-cards-track {
+    display: flex;
+    width: max-content;
+    gap: 20px;
+    animation: wm-cards-marquee 32s linear infinite;
+    will-change: transform;
+  }
+  .wm-cards-container:hover .wm-cards-track {
+    animation-play-state: paused;
+  }
+  .wm-musico-card {
+    flex: 0 0 240px;
+    aspect-ratio: 9 / 16;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #090a0d;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+    position: relative;
+    display: block;
+    text-decoration: none;
+  }
+  .wm-musico-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    border-color: #2F6FE0;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(47, 111, 224, 0.4);
+  }
+  .wm-musico-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.45s ease;
+  }
+  .wm-musico-card:hover img {
+    transform: scale(1.03);
+  }
+  @media (max-width: 768px) {
+    .wm-musico-card { flex: 0 0 190px; }
+  }
+
   @media (max-width: 700px) {
     .wm-header-logo { height: 42px !important; }
     .wm-header-links { display: none !important; }
@@ -250,6 +297,62 @@
       </div>
       <div data-wm-reveal="" style="position:relative; aspect-ratio:4/5; border-radius:24px; overflow:hidden; border:1px solid rgba(255,255,255,.08); box-shadow:0 30px 80px rgba(0,0,0,.7)">
         <image-slot id="wm2-banda" shape="rect" fit="cover" placeholder="Foto oficial da banda"></image-slot>
+      </div>
+    </div>
+  </section>
+
+  <!-- Carrossel Contínuo dos Membros da Banda Walkmachine -->
+  <section id="musicos" style="position:relative; z-index:10; max-width:100%; margin:0 auto; padding:40px 0 90px; overflow:hidden">
+    <div style="max-width:1180px; margin:0 auto 36px; padding:0 24px">
+      <div data-wm-reveal="" style="display:flex; align-items:center; gap:12px; margin-bottom:20px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:#2F6FE0">
+        <span style="width:24px; height:1px; background:#2F6FE0"></span><span>Músicos & Integrantes</span>
+      </div>
+      <h2 data-wm-reveal="" style="margin:0; font-family:'Barlow Condensed',Impact,sans-serif; font-weight:600; font-size:clamp(32px,4.4vw,60px); line-height:1.04; letter-spacing:-.03em; text-transform:uppercase; background:linear-gradient(180deg,#ffffff,#a1a1aa 62%,#e4e4e7); -webkit-background-clip:text; background-clip:text; color:transparent">
+        Integrantes da Banda
+      </h2>
+    </div>
+
+    <div class="wm-cards-container" style="position:relative; width:100%; overflow:hidden; mask-image:linear-gradient(to right, transparent, black 6%, black 94%, transparent); -webkit-mask-image:linear-gradient(to right, transparent, black 6%, black 94%, transparent)">
+      <div class="wm-cards-track">
+        <!-- Set 1 -->
+        <a href="{{ waFloatLink }}" target="_blank" rel="noreferrer" class="wm-musico-card" title="Raphael Arantes - Voz Principal">
+          <img src="assets/cards/raphael-arantes.webp" alt="Raphael Arantes - Voz Principal" loading="lazy" />
+        </a>
+        <a href="{{ waFloatLink }}" target="_blank" rel="noreferrer" class="wm-musico-card" title="Bruno Chaves - Guitarra & Violão">
+          <img src="assets/cards/bruno-chaves.webp" alt="Bruno Chaves - Guitarra & Violão" loading="lazy" />
+        </a>
+        <a href="{{ waFloatLink }}" target="_blank" rel="noreferrer" class="wm-musico-card" title="Felipe Papa - Bateria">
+          <img src="assets/cards/felipe-papa.webp" alt="Felipe Papa - Bateria" loading="lazy" />
+        </a>
+        <a href="{{ waFloatLink }}" target="_blank" rel="noreferrer" class="wm-musico-card" title="Marcos Vinicius - Teclado & Backing">
+          <img src="assets/cards/marcos-vinicius.webp" alt="Marcos Vinicius - Teclado & Backing" loading="lazy" />
+        </a>
+        <a href="{{ waFloatLink }}" target="_blank" rel="noreferrer" class="wm-musico-card" title="Natan Campos - Guitarra Solo">
+          <img src="assets/cards/natan-campos.webp" alt="Natan Campos - Guitarra Solo" loading="lazy" />
+        </a>
+        <a href="{{ waFloatLink }}" target="_blank" rel="noreferrer" class="wm-musico-card" title="Walkmachine - Contrate Agora">
+          <img src="assets/cards/contrate-agora.webp" alt="Walkmachine - Contrate Agora" loading="lazy" />
+        </a>
+
+        <!-- Set 2 (duplicado para loop infinito perfeito) -->
+        <a href="{{ waFloatLink }}" target="_blank" rel="noreferrer" class="wm-musico-card" title="Raphael Arantes - Voz Principal">
+          <img src="assets/cards/raphael-arantes.webp" alt="Raphael Arantes - Voz Principal" loading="lazy" />
+        </a>
+        <a href="{{ waFloatLink }}" target="_blank" rel="noreferrer" class="wm-musico-card" title="Bruno Chaves - Guitarra & Violão">
+          <img src="assets/cards/bruno-chaves.webp" alt="Bruno Chaves - Guitarra & Violão" loading="lazy" />
+        </a>
+        <a href="{{ waFloatLink }}" target="_blank" rel="noreferrer" class="wm-musico-card" title="Felipe Papa - Bateria">
+          <img src="assets/cards/felipe-papa.webp" alt="Felipe Papa - Bateria" loading="lazy" />
+        </a>
+        <a href="{{ waFloatLink }}" target="_blank" rel="noreferrer" class="wm-musico-card" title="Marcos Vinicius - Teclado & Backing">
+          <img src="assets/cards/marcos-vinicius.webp" alt="Marcos Vinicius - Teclado & Backing" loading="lazy" />
+        </a>
+        <a href="{{ waFloatLink }}" target="_blank" rel="noreferrer" class="wm-musico-card" title="Natan Campos - Guitarra Solo">
+          <img src="assets/cards/natan-campos.webp" alt="Natan Campos - Guitarra Solo" loading="lazy" />
+        </a>
+        <a href="{{ waFloatLink }}" target="_blank" rel="noreferrer" class="wm-musico-card" title="Walkmachine - Contrate Agora">
+          <img src="assets/cards/contrate-agora.webp" alt="Walkmachine - Contrate Agora" loading="lazy" />
+        </a>
       </div>
     </div>
   </section>
