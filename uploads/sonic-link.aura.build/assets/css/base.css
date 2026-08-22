@@ -1,0 +1,41 @@
+/* Base theme tokens: page background, default font, monospace utility,
+   and the cms-loading shimmer placeholder used while content streams in. */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #000000;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+@keyframes cms-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.cms-loading {
+  position: relative;
+  color: transparent !important;
+  background-image: none !important;
+  background-color: transparent !important;
+  background: linear-gradient(90deg,
+    rgba(128, 128, 128, 0.1) 25%,
+    rgba(128, 128, 128, 0.2) 50%,
+    rgba(128, 128, 128, 0.1) 75%
+  ) !important;
+  background-size: 200% 100% !important;
+  animation: cms-shimmer 1.5s infinite !important;
+  border-radius: 12px;
+  min-height: 1em;
+  min-width: 3em;
+  overflow: hidden;
+}
+
+.cms-loading * {
+  visibility: hidden !important;
+}
+
+.cms-loading img {
+  opacity: 0 !important;
+}
