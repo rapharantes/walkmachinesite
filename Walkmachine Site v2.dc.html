@@ -355,14 +355,6 @@
         Baixar Apresentação (PDF)
       </a>
     </div>
-
-    <div style="display:flex; align-items:flex-end; justify-content:center; gap:14px; width:100%; max-width:1080px">
-      <sc-for list="{{ heroCards }}" as="c" hint-placeholder-count="5">
-        <div data-wm-card="" style="position:relative; flex:1 1 0; min-width:0; aspect-ratio:3/4; border-radius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.08); box-shadow:0 24px 60px rgba(0,0,0,.7)">
-          <image-slot id="{{ c.id }}" shape="rect" fit="cover" placeholder="Foto"></image-slot>
-        </div>
-      </sc-for>
-    </div>
   </section>
 
   <section id="banda" style="position:relative; z-index:10; max-width:1180px; margin:0 auto; padding:110px 24px">
