@@ -1540,79 +1540,51 @@
         </section>
       </sc-if>
 
-      <section id="rider" style="position:relative; z-index:10; max-width:1180px; margin:0 auto; padding:110px 24px">
-        <div data-wm-reveal=""
-          style="display:flex; align-items:center; gap:12px; margin-bottom:26px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:#2F6FE0">
-          <span style="width:24px; height:1px; background:#2F6FE0"></span><span>Rider técnico</span>
-        </div>
-        <h2 data-wm-reveal=""
-          style="margin:0 0 14px; font-family:'Barlow Condensed',Impact,sans-serif; font-weight:600; font-size:clamp(32px,4.4vw,60px); line-height:1.04; letter-spacing:-.03em; text-transform:uppercase; background:linear-gradient(180deg,#ffffff,#a1a1aa 62%,#e4e4e7); -webkit-background-clip:text; background-clip:text; color:transparent">
-          Visão geral para produção</h2>
-        <p data-wm-reveal="" style="margin:0 0 46px; max-width:64ch; font-size:16px; line-height:1.6; color:#c4c4cc">
-          Estrutura organizada para garantir qualidade sonora, operação segura e a melhor experiência do público. A
-          produção deve ser informada previamente sobre limitações técnicas do local.</p>
-
-        <div style="display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px">
-          <sc-for list="{{ rider }}" as="r" hint-placeholder-count="4">
-            <div data-wm-card=""
-              style="padding:30px 26px; border-radius:22px; background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.07)">
-              <div
-                style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:#fff; margin-bottom:18px">
-                {{ r.titulo }}</div>
-              <sc-for list="{{ r.itens }}" as="i" hint-placeholder-count="3">
-                <div style="font-size:15px; line-height:1.5; color:#e7e7ea; padding:6px 0">{{ i }}</div>
-              </sc-for>
-            </div>
-          </sc-for>
-        </div>
-
+      <!-- Seção Rider Técnico & Produção -->
+      <section id="rider" style="position:relative; z-index:10; max-width:1180px; margin:0 auto; padding:90px 24px 70px">
         <div data-wm-card=""
-          style="margin-top:16px; padding:36px 32px; border-radius:24px; background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.07)">
+          style="position:relative; overflow:hidden; border-radius:32px; border:1px solid rgba(255,255,255,.08); background:rgba(24,24,27,.45); padding:60px 48px; box-shadow:0 30px 90px rgba(0,0,0,.7); backdrop-filter:blur(16px)">
           <div
-            style="display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:8px">
-            <div
-              style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:#fff">
-              Mapa de palco</div>
-            <div
-              style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#c4c4cc">
-              Palco mínimo — banda completa: 6m × 4m</div>
+            style="position:absolute; right:-80px; top:-80px; width:360px; height:360px; border-radius:50%; filter:blur(70px); opacity:.25; background:radial-gradient(circle at center,#2F6FE0,transparent 64%); pointer-events:none">
           </div>
-          <p style="margin:0 0 28px; font-size:15px; line-height:1.6; color:#c4c4cc">Configuração base para banda
-            completa. A montagem pode ser reduzida para trio ou duo.</p>
           <div
-            style="position:relative; width:100%; border-radius:18px; overflow:hidden; border:1px solid rgba(255,255,255,.1); box-shadow:0 24px 70px rgba(0,0,0,.7); background:#06070a; transition:transform .4s ease, border-color .4s ease"
-            style-hover="border-color:rgba(47,111,224,.5)">
-            <img src="assets/mapa-de-palco.png" alt="Mapa de Palco da Banda Walkmachine" loading="lazy"
-              style="width:100%; height:auto; display:block; object-fit:contain" />
+            style="position:absolute; left:-80px; bottom:-80px; width:360px; height:360px; border-radius:50%; filter:blur(70px); opacity:.2; background:radial-gradient(circle at center,#C22C2C,transparent 64%); pointer-events:none">
           </div>
-        </div>
 
-        <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:16px; margin-top:16px">
-          <div data-wm-card=""
-            style="padding:32px 30px; border-radius:24px; background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.07)">
-            <div
-              style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:#fff; margin-bottom:22px">
-              Input list base</div>
-            <sc-for list="{{ inputs }}" as="row" hint-placeholder-count="10">
-              <div
-                style="display:grid; grid-template-columns:34px minmax(0,1fr) auto; gap:14px; padding:9px 0; border-top:1px solid rgba(255,255,255,.06); font-size:14px; color:#f0f0f2">
-                <span style="font-family:'JetBrains Mono',monospace; color:#a8a8b2">{{ row.n }}</span>
-                <span>{{ row.fonte }}</span>
-                <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#c4c4cc; text-align:right">{{
-                  row.mic }}</span>
-              </div>
-            </sc-for>
-          </div>
-          <div style="display:flex; flex-direction:column; gap:16px">
-            <sc-for list="{{ operacao }}" as="b" hint-placeholder-count="3">
-              <div data-wm-card=""
-                style="padding:32px 30px; border-radius:24px; background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.07)">
-                <div
-                  style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:#fff; margin-bottom:16px">
-                  {{ b.titulo }}</div>
-                <div style="font-size:15px; line-height:1.7; color:#e7e7ea">{{ b.texto }}</div>
-              </div>
-            </sc-for>
+          <div style="position:relative; max-width:760px">
+            <div data-wm-reveal=""
+              style="display:flex; align-items:center; gap:12px; margin-bottom:22px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:#2F6FE0">
+              <span style="width:24px; height:1px; background:#2F6FE0"></span><span>Rider Técnico & Produção</span>
+            </div>
+
+            <h2 data-wm-reveal=""
+              style="margin:0 0 20px; font-family:'Barlow Condensed',Impact,sans-serif; font-weight:600; font-size:clamp(32px,4.5vw,58px); line-height:1.04; letter-spacing:-.03em; text-transform:uppercase; background:linear-gradient(180deg,#ffffff,#a1a1aa 62%,#e4e4e7); -webkit-background-clip:text; background-clip:text; color:transparent">
+              Rider Técnico e Mapa de Palco
+            </h2>
+
+            <p data-wm-reveal=""
+              style="margin:0 0 36px; font-size:16px; line-height:1.7; color:#c4c4cc; text-wrap:pretty">
+              Consulte as especificações técnicas completas para diretores de palco, técnicos de som, iluminação e produtoras de eventos: estrutura de P.A., monitoração, input list e mapa de palco detalhado para montagem em eventos corporativos, casamentos e casas de show.
+            </p>
+
+            <div data-wm-reveal="" style="display:flex; flex-wrap:wrap; gap:14px; align-items:center">
+              <a href="walkmachine-rider-tecnico.pdf" download="walkmachine-rider-tecnico.pdf" target="_blank" rel="noreferrer"
+                style="display:inline-flex; align-items:center; gap:10px; padding:16px 34px; border-radius:999px; background:#2F6FE0; border:1px solid rgba(255,255,255,.2); color:#ffffff; font-size:14px; font-weight:600; text-decoration:none; box-shadow:0 0 24px rgba(47,111,224,.5); transition:all .25s ease"
+                style-hover="background:#4a86ef;box-shadow:0 0 32px rgba(47,111,224,.75);transform:translateY(-2px)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Baixar Rider Técnico (PDF)
+              </a>
+
+              <a href="{{ waLink }}" target="_blank" rel="noreferrer"
+                style="display:inline-flex; align-items:center; gap:8px; padding:16px 28px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); color:#f7f7f8; font-size:14px; font-weight:500; text-decoration:none; transition:all .25s ease"
+                style-hover="border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.08)">
+                Dúvidas Técnicas no WhatsApp
+              </a>
+            </div>
           </div>
         </div>
       </section>
