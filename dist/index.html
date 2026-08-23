@@ -578,6 +578,66 @@
           transform: scale(1.04);
         }
 
+        
+        /* ---- Efeito Flash de Luz & Palco do Músico Hero ---- */
+        @keyframes wm-strobe-flash {
+          0% {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          15% {
+            opacity: 0.96;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,1) 0%, rgba(143,176,234,0.95) 25%, rgba(47,111,224,0.7) 55%, transparent 75%);
+            transform: scale(1.06);
+          }
+          40% {
+            opacity: 0.75;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.85) 0%, rgba(194,44,44,0.55) 42%, transparent 70%);
+          }
+          100% {
+            opacity: 0;
+            transform: scale(1);
+          }
+        }
+
+        .wm-hero-flash {
+          position: absolute;
+          inset: -12%;
+          pointer-events: none;
+          z-index: 10;
+          opacity: 0;
+          mix-blend-mode: screen;
+        }
+
+        .wm-hero-flash.wm-flash-active {
+          animation: wm-strobe-flash 0.65s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+        }
+
+        .wm-hero-stage-container {
+          position: relative;
+          width: 100%;
+          max-width: 520px;
+          height: 580px;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          margin: 0 auto;
+        }
+
+        .wm-hero-slide-img {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          max-height: 560px;
+          width: auto;
+          max-width: 95%;
+          object-fit: contain;
+          object-position: bottom center;
+          transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+          filter: contrast(1.08) saturate(1.08) drop-shadow(0 20px 45px rgba(0,0,0,0.9)) drop-shadow(0 0 35px rgba(47,111,224,0.35));
+        }
+
         /* ---- Carrossel Contínuo de Músicos ---- */
         @keyframes wm-cards-marquee {
           0% { transform: translate3d(0, 0, 0); }
@@ -629,7 +689,40 @@
         }
 
         /* ---- RESPONSIVIDADE AVANÇADA (MOBILE & TABLET) ---- */
+        
         @media (max-width: 1000px) {
+          .wm-hero-grid {
+            grid-template-columns: minmax(0, 1fr) !important;
+            gap: 36px !important;
+          }
+
+          .wm-hero-content {
+            align-items: center !important;
+            text-align: center !important;
+          }
+
+          .wm-hero-content h1 {
+            align-items: center !important;
+            text-align: center !important;
+          }
+
+          .wm-hero-content [data-wm-reveal] {
+            justify-content: center !important;
+          }
+
+          .wm-hero-stage-container {
+            height: 460px !important;
+            max-width: 400px !important;
+          }
+
+          .wm-hero-slide-img {
+            max-height: 440px !important;
+          }
+
+          section {
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+          }
           section {
             padding-left: 20px !important;
             padding-right: 20px !important;
@@ -888,56 +981,119 @@
         </nav>
       </header>
 
-      <section id="topo"
-        style="position:relative; z-index:10; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:150px 24px 70px; box-sizing:border-box">
-        <div data-wm-meta=""
-          style="display:flex; align-items:center; gap:14px; margin-bottom:38px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:#c4c4cc">
-          <span
-            style="width:6px; height:6px; border-radius:50%; background:#C22C2C; animation:wm-pulse 2.4s ease-in-out infinite"></span>
-          <span>Belo Horizonte</span>
-          <span style="width:28px; height:1px; background:rgba(255,255,255,.18)"></span>
-          <span>Rock pop nacional e internacional</span>
-        </div>
+            <section id="topo"
+        style="position:relative; z-index:10; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:135px 24px 60px; box-sizing:border-box">
+        <div class="wm-hero-grid" style="width:100%; max-width:1200px; margin:0 auto; display:grid; grid-template-columns:minmax(0,0.95fr) minmax(0,1.05fr); gap:48px; align-items:center">
+          
+          <!-- LADO ESQUERDO: Palco dinâmico dos músicos em tamanho aumentado com efeito Flash de Luz -->
+          <div data-wm-hero-stage="" class="wm-hero-stage-container" style="position:relative; width:100%; height:580px; display:flex; align-items:flex-end; justify-content:center">
+            
+            <!-- Holofote de Fundo & Iluminação de Palco -->
+            <div style="position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:440px; height:480px; border-radius:50% 50% 0 0; background:radial-gradient(ellipse at bottom, rgba(47,111,224,.48), rgba(194,44,44,.24) 48%, rgba(9,10,13,0) 78%); pointer-events:none; filter:blur(14px)"></div>
+            <div style="position:absolute; bottom:-10px; left:50%; transform:translateX(-50%); width:360px; height:60px; border-radius:50%; background:radial-gradient(ellipse at center, rgba(0,0,0,.95) 20%, rgba(47,111,224,.35) 60%, transparent 75%); filter:blur(6px); pointer-events:none"></div>
 
-        <img data-wm-hero-logo="" src="assets/wordmark.png" alt="Banda Walkmachine"
-          style="width:min(560px,80vw); height:auto; display:block; margin:0 0 34px; filter:drop-shadow(0 12px 60px rgba(47,111,224,.35))" />
+            <!-- Efeito Flash de Luz / Strobe na Transição -->
+            <div data-wm-hero-flash="" class="wm-hero-flash"></div>
 
-        <h1
-          style="margin:0 0 26px; font-family:'Barlow Condensed',Impact,sans-serif; font-weight:600; font-size:clamp(42px,7.4vw,104px); line-height:.96; letter-spacing:-.03em; text-transform:uppercase; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; max-width:24ch">
-          <span data-wm-chunk=""
-            style="display:block; background:linear-gradient(180deg,#ffffff,#a1a1aa 62%,#e4e4e7); -webkit-background-clip:text; background-clip:text; color:transparent; white-space:nowrap">O
-            melhor do rock pop</span>
-          <span data-wm-chunk=""
-            style="display:block; background:linear-gradient(180deg,#ffffff,#a1a1aa 62%,#e4e4e7); -webkit-background-clip:text; background-clip:text; color:transparent; white-space:nowrap">de
-            todos os tempos</span>
-        </h1>
+            <!-- Slides dos Músicos (Tamanho aumentado) -->
+            <div style="position:relative; width:100%; height:100%; display:flex; align-items:flex-end; justify-content:center; overflow:hidden">
+              
+              <!-- 1. Raphael Arantes -->
+              <img data-wm-hero-slide="" data-name="Raphael Arantes" data-role="Voz Principal & Violão"
+                src="assets/hero-musicos/hero-raphael.webp" alt="Raphael Arantes - Voz Principal da Walkmachine"
+                class="wm-hero-slide-img" style="opacity:1; z-index:3; transform:scale(1) translate3d(0,0,0)" />
 
-        <p data-wm-reveal=""
-          style="margin:0 0 36px; max-width:56ch; font-size:17px; line-height:1.6; color:#e7e7ea; text-wrap:pretty">
-          Banda completa, trio ou duo acústico para casamentos, eventos corporativos, festas particulares, bares e pubs
-          — com estrutura profissional e repertório que enche a pista.</p>
+              <!-- 2. Bruno Chaves -->
+              <img data-wm-hero-slide="" data-name="Bruno Chaves" data-role="Guitarra & Violão"
+                src="assets/hero-musicos/hero-bruno.webp" alt="Bruno Chaves - Guitarrista da Walkmachine"
+                class="wm-hero-slide-img" style="opacity:0; z-index:1; transform:scale(0.96) translate3d(0,10px,0)" />
 
-        <div data-wm-reveal=""
-          style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-bottom:66px">
-          <a href="{{ waLink }}" target="_blank" rel="noreferrer"
-            style="display:inline-flex; align-items:center; padding:14px 28px; border-radius:999px; background:#2F6FE0; color:#fff; font-size:14px; font-weight:500; box-shadow:0 0 22px rgba(47,111,224,.45); transition:all .25s ease"
-            style-hover="background:#4a86ef;box-shadow:0 0 28px rgba(47,111,224,.7)">Consultar disponibilidade</a>
-          <a href="#propostas"
-            style="display:inline-flex; align-items:center; padding:14px 28px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03); color:#f7f7f8; font-size:14px; font-weight:500; transition:all .25s ease"
-            style-hover="border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.08)">Ver propostas</a>
-          <a href="WALKMACHINE APRESENTAÇÃO FINAL_compressed.pdf" download="WALKMACHINE APRESENTAÇÃO FINAL.pdf"
-            target="_blank" rel="noreferrer"
-            style="display:inline-flex; align-items:center; gap:9px; padding:14px 28px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.06); backdrop-filter:blur(10px); color:#ffffff; font-size:14px; font-weight:500; box-shadow:0 6px 20px rgba(0,0,0,.35); transition:all .25s ease"
-            style-hover="background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.4);box-shadow:0 0 24px rgba(255,255,255,.2)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
-              style="color:#C22C2C; filter:drop-shadow(0 0 6px rgba(194,44,44,.6))">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7 10 12 15 17 10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            Baixar Apresentação (PDF)
-          </a>
+              <!-- 3. Natan Campos -->
+              <img data-wm-hero-slide="" data-name="Natan Campos" data-role="Guitarra Solo"
+                src="assets/hero-musicos/hero-natan.webp" alt="Natan Campos - Guitarrista da Walkmachine"
+                class="wm-hero-slide-img" style="opacity:0; z-index:1; transform:scale(0.96) translate3d(0,10px,0)" />
+
+              <!-- 4. Marcos Vinicius -->
+              <img data-wm-hero-slide="" data-name="Marcos Vinicius" data-role="Teclado & Backing"
+                src="assets/hero-musicos/hero-marcos.webp" alt="Marcos Vinicius - Tecladista da Walkmachine"
+                class="wm-hero-slide-img" style="opacity:0; z-index:1; transform:scale(0.96) translate3d(0,10px,0)" />
+
+              <!-- 5. Felipe Papa -->
+              <img data-wm-hero-slide="" data-name="Felipe Papa" data-role="Bateria"
+                src="assets/hero-musicos/hero-felipe.webp" alt="Felipe Papa - Baterista da Walkmachine"
+                class="wm-hero-slide-img" style="opacity:0; z-index:1; transform:scale(0.96) translate3d(0,10px,0)" />
+            </div>
+
+            <!-- Card Flutuante de Identificação do Músico + Indicadores -->
+            <div style="position:absolute; bottom:16px; left:50%; transform:translateX(-50%); z-index:8; display:flex; flex-direction:column; align-items:center; gap:8px; padding:10px 22px; border-radius:999px; background:rgba(12,14,18,.9); border:1px solid rgba(255,255,255,.14); backdrop-filter:blur(16px); box-shadow:0 12px 30px rgba(0,0,0,.75); white-space:nowrap">
+              <div style="display:flex; align-items:center; gap:8px">
+                <span style="width:7px; height:7px; border-radius:50%; background:#2F6FE0; box-shadow:0 0 10px #2F6FE0; animation:wm-pulse 2s infinite"></span>
+                <span data-wm-hero-name="" style="font-family:'Barlow Condensed',Impact,sans-serif; font-size:18px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; color:#ffffff">Raphael Arantes</span>
+                <span style="color:rgba(255,255,255,.3)">·</span>
+                <span data-wm-hero-role="" style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em; color:#a1a1aa; text-transform:uppercase">Voz Principal & Violão</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:6px">
+                <button type="button" data-wm-hero-dot="0" aria-label="Raphael Arantes" style="width:20px; height:4px; border-radius:2px; border:0; background:#2F6FE0; box-shadow:0 0 10px #2F6FE0; cursor:pointer; padding:0; transition:all .3s ease"></button>
+                <button type="button" data-wm-hero-dot="1" aria-label="Bruno Chaves" style="width:20px; height:4px; border-radius:2px; border:0; background:rgba(255,255,255,.2); cursor:pointer; padding:0; transition:all .3s ease"></button>
+                <button type="button" data-wm-hero-dot="2" aria-label="Natan Campos" style="width:20px; height:4px; border-radius:2px; border:0; background:rgba(255,255,255,.2); cursor:pointer; padding:0; transition:all .3s ease"></button>
+                <button type="button" data-wm-hero-dot="3" aria-label="Marcos Vinicius" style="width:20px; height:4px; border-radius:2px; border:0; background:rgba(255,255,255,.2); cursor:pointer; padding:0; transition:all .3s ease"></button>
+                <button type="button" data-wm-hero-dot="4" aria-label="Felipe Papa" style="width:20px; height:4px; border-radius:2px; border:0; background:rgba(255,255,255,.2); cursor:pointer; padding:0; transition:all .3s ease"></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- LADO DIREITO: Logomarca, Headline e Proposta de Valor -->
+          <div class="wm-hero-content" style="display:flex; flex-direction:column; align-items:flex-start; text-align:left">
+            <div data-wm-meta=""
+              style="display:flex; align-items:center; gap:12px; margin-bottom:24px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:#c4c4cc">
+              <span
+                style="width:6px; height:6px; border-radius:50%; background:#C22C2C; animation:wm-pulse 2.4s ease-in-out infinite"></span>
+              <span>Belo Horizonte</span>
+              <span style="width:24px; height:1px; background:rgba(255,255,255,.18)"></span>
+              <span>Rock pop nacional e internacional</span>
+            </div>
+
+            <img data-wm-hero-logo="" src="assets/wordmark.png" alt="Banda Walkmachine"
+              style="width:min(460px,85vw); height:auto; display:block; margin:0 0 24px; filter:drop-shadow(0 12px 50px rgba(47,111,224,.35))" />
+
+            <h1
+              style="margin:0 0 22px; font-family:'Barlow Condensed',Impact,sans-serif; font-weight:600; font-size:clamp(38px,5.2vw,76px); line-height:.96; letter-spacing:-.03em; text-transform:uppercase; display:flex; flex-direction:column; align-items:flex-start; text-align:left; max-width:20ch">
+              <span data-wm-chunk=""
+                style="display:block; background:linear-gradient(180deg,#ffffff,#a1a1aa 62%,#e4e4e7); -webkit-background-clip:text; background-clip:text; color:transparent; white-space:nowrap">O
+                melhor do rock pop</span>
+              <span data-wm-chunk=""
+                style="display:block; background:linear-gradient(180deg,#ffffff,#a1a1aa 62%,#e4e4e7); -webkit-background-clip:text; background-clip:text; color:transparent; white-space:nowrap">de
+                todos os tempos</span>
+            </h1>
+
+            <p data-wm-reveal=""
+              style="margin:0 0 32px; max-width:48ch; font-size:16px; line-height:1.6; color:#e7e7ea; text-wrap:pretty">
+              Banda completa, trio ou duo acústico para casamentos, eventos corporativos, festas particulares, bares e pubs
+              — com estrutura profissional e repertório que enche a pista.</p>
+
+            <div data-wm-reveal=""
+              style="display:flex; flex-wrap:wrap; gap:12px; justify-content:flex-start; margin-bottom:18px">
+              <a href="{{ waLink }}" target="_blank" rel="noreferrer"
+                style="display:inline-flex; align-items:center; padding:13px 26px; border-radius:999px; background:#2F6FE0; color:#fff; font-size:14px; font-weight:500; box-shadow:0 0 22px rgba(47,111,224,.45); transition:all .25s ease"
+                style-hover="background:#4a86ef;box-shadow:0 0 28px rgba(47,111,224,.7)">Consultar disponibilidade</a>
+              <a href="#propostas"
+                style="display:inline-flex; align-items:center; padding:13px 26px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03); color:#f7f7f8; font-size:14px; font-weight:500; transition:all .25s ease"
+                style-hover="border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.08)">Ver propostas</a>
+              <a href="WALKMACHINE APRESENTAÇÃO FINAL_compressed.pdf" download="WALKMACHINE APRESENTAÇÃO FINAL.pdf"
+                target="_blank" rel="noreferrer"
+                style="display:inline-flex; align-items:center; gap:8px; padding:13px 24px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.06); backdrop-filter:blur(10px); color:#ffffff; font-size:13px; font-weight:500; box-shadow:0 6px 20px rgba(0,0,0,.35); transition:all .25s ease"
+                style-hover="background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.4);box-shadow:0 0 24px rgba(255,255,255,.2)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                  style="color:#C22C2C; filter:drop-shadow(0 0 6px rgba(194,44,44,.6))">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Baixar Apresentação (PDF)
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1523,6 +1679,7 @@ class Component extends DCLogic {
     // rAF does not, and gating on it once left the whole page frozen.
     setTimeout(() => this.initMotion(), 0);
     setTimeout(() => this.initVideos(), 0);
+    setTimeout(() => this.initHeroMusicos(), 0);
     // The helmet does not evaluate module scripts, so the prism is imported here.
     import("./prism-background.js").catch(() => {});
     if (window.__wmPrismReady) this.dimCssLights();
@@ -1531,6 +1688,67 @@ class Component extends DCLogic {
       window.addEventListener("wm-prism-ready", this.onPrism);
     }
   }
+  initHeroMusicos() {
+    const stage = document.querySelector("[data-wm-hero-stage]");
+    if (!stage) return;
+    const slides = Array.from(stage.querySelectorAll("[data-wm-hero-slide]"));
+    const flash = stage.querySelector("[data-wm-hero-flash]");
+    const nameEl = stage.querySelector("[data-wm-hero-name]");
+    const roleEl = stage.querySelector("[data-wm-hero-role]");
+    const dots = Array.from(stage.querySelectorAll("[data-wm-hero-dot]"));
+    if (!slides.length) return;
+
+    let currentIndex = 0;
+    const total = slides.length;
+
+    const showSlide = (index, triggerFlash = true) => {
+      currentIndex = index;
+      
+      if (triggerFlash && flash) {
+        flash.classList.remove("wm-flash-active");
+        void flash.offsetWidth;
+        flash.classList.add("wm-flash-active");
+      }
+
+      slides.forEach((slide, i) => {
+        const isActive = i === index;
+        slide.style.opacity = isActive ? "1" : "0";
+        slide.style.transform = isActive ? "scale(1) translate3d(0,0,0)" : "scale(0.95) translate3d(0,14px,0)";
+        slide.style.zIndex = isActive ? "3" : "1";
+        slide.setAttribute("aria-hidden", String(!isActive));
+      });
+
+      const currentSlide = slides[index];
+      if (nameEl) nameEl.textContent = currentSlide.getAttribute("data-name") || "";
+      if (roleEl) roleEl.textContent = currentSlide.getAttribute("data-role") || "";
+
+      dots.forEach((dot, i) => {
+        const isActive = i === index;
+        dot.style.background = isActive ? "#2F6FE0" : "rgba(255,255,255,.2)";
+        dot.style.boxShadow = isActive ? "0 0 10px #2F6FE0" : "none";
+      });
+    };
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => {
+        if (this.heroMusicoTimer) clearInterval(this.heroMusicoTimer);
+        showSlide(i, true);
+        startTimer();
+      });
+    });
+
+    const startTimer = () => {
+      if (this.heroMusicoTimer) clearInterval(this.heroMusicoTimer);
+      this.heroMusicoTimer = setInterval(() => {
+        const nextIndex = (currentIndex + 1) % total;
+        showSlide(nextIndex, true);
+      }, 4200);
+    };
+
+    showSlide(0, false);
+    startTimer();
+  }
+
   // Carrossel de videos: a playlist do YouTube e carregada como iframe apenas
   // depois do clique, para nao pesar o primeiro carregamento da pagina.
   initVideos() {
