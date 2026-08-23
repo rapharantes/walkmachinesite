@@ -1714,42 +1714,48 @@ class Component extends DCLogic {
 
   initBackgroundAudio() {
     const widget = document.querySelector("[data-wm-audio-widget]");
-    if (!widget) return;
-
-    const btn = widget.querySelector("[data-wm-audio-btn]");
-    const trigger = widget.querySelector("[data-wm-audio-trigger]");
-    const iconPlay = widget.querySelector('[data-wm-audio-icon="play"]');
-    const iconPause = widget.querySelector('[data-wm-audio-icon="pause"]');
-    const equalizer = widget.querySelector("[data-wm-equalizer]");
-
-    const audio = new Audio("assets/audio/learn-to-fly-instrumental.mp3");
+    
+    // Create Audio instance (with multiple source paths for robustness)
+    const audio = new Audio();
+    audio.src = "assets/audio/learn-to-fly-instrumental.mp3";
     audio.loop = true;
-    audio.volume = 0.36;
+    audio.volume = 0.42;
+    audio.preload = "auto";
     window.__wmBgAudio = audio;
+
+    const btn = widget ? widget.querySelector("[data-wm-audio-btn]") : null;
+    const trigger = widget ? widget.querySelector("[data-wm-audio-trigger]") : null;
+    const iconPlay = widget ? widget.querySelector('[data-wm-audio-icon="play"]') : null;
+    const iconPause = widget ? widget.querySelector('[data-wm-audio-icon="pause"]') : null;
 
     let isPlaying = false;
 
     const updateState = (playing) => {
       isPlaying = playing;
-      if (playing) {
-        widget.classList.add("wm-audio-playing");
-        widget.classList.remove("wm-audio-paused");
-        if (iconPlay) iconPlay.style.display = "none";
-        if (iconPause) iconPause.style.display = "block";
-      } else {
-        widget.classList.remove("wm-audio-playing");
-        widget.classList.add("wm-audio-paused");
-        if (iconPlay) iconPlay.style.display = "block";
-        if (iconPause) iconPause.style.display = "none";
+      if (widget) {
+        if (playing) {
+          widget.classList.add("wm-audio-playing");
+          widget.classList.remove("wm-audio-paused");
+          if (iconPlay) iconPlay.style.display = "none";
+          if (iconPause) iconPause.style.display = "block";
+        } else {
+          widget.classList.remove("wm-audio-playing");
+          widget.classList.add("wm-audio-paused");
+          if (iconPlay) iconPlay.style.display = "block";
+          if (iconPause) iconPause.style.display = "none";
+        }
       }
     };
 
     const playAudio = () => {
-      audio.play().then(() => {
-        updateState(true);
-      }).catch(() => {
-        updateState(false);
-      });
+      const promise = audio.play();
+      if (promise !== undefined) {
+        promise.then(() => {
+          updateState(true);
+        }).catch((err) => {
+          updateState(false);
+        });
+      }
     };
 
     const pauseAudio = () => {
@@ -1768,26 +1774,26 @@ class Component extends DCLogic {
     if (btn) btn.addEventListener("click", (e) => { e.stopPropagation(); toggleAudio(); });
     if (trigger) trigger.addEventListener("click", toggleAudio);
 
-    // Initial autoplay attempt
+    // 1. Immediate play attempt
     playAudio();
 
-    // Interaction fallback for browsers blocking autoplay before gesture
-    const unlockOnGesture = () => {
+    // 2. Global user interaction unlock (captures first touch, scroll, click, gesture)
+    const unlockEvents = ["pointerdown", "touchstart", "touchend", "click", "scroll", "keydown", "wheel"];
+    const onUserInteraction = () => {
       if (!isPlaying) {
         playAudio();
       }
-      window.removeEventListener("pointerdown", unlockOnGesture);
-      window.removeEventListener("keydown", unlockOnGesture);
-      window.removeEventListener("scroll", unlockOnGesture);
-      window.removeEventListener("touchstart", unlockOnGesture);
+      unlockEvents.forEach(evt => {
+        window.removeEventListener(evt, onUserInteraction, { capture: true });
+        document.removeEventListener(evt, onUserInteraction, { capture: true });
+      });
     };
 
-    window.addEventListener("pointerdown", unlockOnGesture, { once: true });
-    window.addEventListener("keydown", unlockOnGesture, { once: true });
-    window.addEventListener("scroll", unlockOnGesture, { once: true });
-    window.addEventListener("touchstart", unlockOnGesture, { once: true });
+    unlockEvents.forEach(evt => {
+      window.addEventListener(evt, onUserInteraction, { once: true, capture: true, passive: true });
+      document.addEventListener(evt, onUserInteraction, { once: true, capture: true, passive: true });
+    });
   }
-
 
   initHeroMusicos() {
     const stage = document.querySelector("[data-wm-hero-stage]");
