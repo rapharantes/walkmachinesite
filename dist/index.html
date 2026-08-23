@@ -677,6 +677,39 @@
           transform: scale(1.06);
         }
 
+        
+        /* ---- Sound Track Equalizer & Widget ---- */
+        @keyframes wm-eq-anim-1 { 0%, 100% { height: 4px; } 50% { height: 16px; } }
+        @keyframes wm-eq-anim-2 { 0%, 100% { height: 14px; } 50% { height: 5px; } }
+        @keyframes wm-eq-anim-3 { 0%, 100% { height: 7px; } 50% { height: 18px; } }
+        @keyframes wm-eq-anim-4 { 0%, 100% { height: 16px; } 50% { height: 6px; } }
+
+        .wm-eq-bar {
+          width: 3px;
+          background: #2F6FE0;
+          border-radius: 2px;
+          display: block;
+        }
+
+        .wm-audio-playing .wm-eq-1 { animation: wm-eq-anim-1 0.75s ease-in-out infinite alternate; }
+        .wm-audio-playing .wm-eq-2 { animation: wm-eq-anim-2 0.65s ease-in-out infinite alternate 0.15s; }
+        .wm-audio-playing .wm-eq-3 { animation: wm-eq-anim-3 0.85s ease-in-out infinite alternate 0.3s; }
+        .wm-audio-playing .wm-eq-4 { animation: wm-eq-anim-4 0.7s ease-in-out infinite alternate 0.2s; }
+
+        .wm-audio-paused .wm-eq-bar {
+          height: 3px !important;
+          animation: none !important;
+          opacity: 0.4;
+        }
+
+        @media (max-width: 768px) {
+          [data-wm-audio-widget] {
+            bottom: 84px !important;
+            left: 16px !important;
+            padding: 6px 12px 6px 8px !important;
+          }
+        }
+
         /* ---- Carrossel Contínuo de Músicos ---- */
         @keyframes wm-cards-marquee {
           0% { transform: translate3d(0, 0, 0); }
@@ -1713,6 +1746,7 @@ class Component extends DCLogic {
     setTimeout(() => this.initMotion(), 0);
     setTimeout(() => this.initVideos(), 0);
     setTimeout(() => this.initHeroMusicos(), 0);
+    setTimeout(() => this.initBackgroundAudio(), 0);
     // The helmet does not evaluate module scripts, so the prism is imported here.
     import("./prism-background.js").catch(() => {});
     if (window.__wmPrismReady) this.dimCssLights();
@@ -1721,6 +1755,84 @@ class Component extends DCLogic {
       window.addEventListener("wm-prism-ready", this.onPrism);
     }
   }
+
+  initBackgroundAudio() {
+    const widget = document.querySelector("[data-wm-audio-widget]");
+    if (!widget) return;
+
+    const btn = widget.querySelector("[data-wm-audio-btn]");
+    const trigger = widget.querySelector("[data-wm-audio-trigger]");
+    const iconPlay = widget.querySelector('[data-wm-audio-icon="play"]');
+    const iconPause = widget.querySelector('[data-wm-audio-icon="pause"]');
+    const equalizer = widget.querySelector("[data-wm-equalizer]");
+
+    const audio = new Audio("assets/audio/learn-to-fly-instrumental.mp3");
+    audio.loop = true;
+    audio.volume = 0.36;
+    window.__wmBgAudio = audio;
+
+    let isPlaying = false;
+
+    const updateState = (playing) => {
+      isPlaying = playing;
+      if (playing) {
+        widget.classList.add("wm-audio-playing");
+        widget.classList.remove("wm-audio-paused");
+        if (iconPlay) iconPlay.style.display = "none";
+        if (iconPause) iconPause.style.display = "block";
+      } else {
+        widget.classList.remove("wm-audio-playing");
+        widget.classList.add("wm-audio-paused");
+        if (iconPlay) iconPlay.style.display = "block";
+        if (iconPause) iconPause.style.display = "none";
+      }
+    };
+
+    const playAudio = () => {
+      audio.play().then(() => {
+        updateState(true);
+      }).catch(() => {
+        updateState(false);
+      });
+    };
+
+    const pauseAudio = () => {
+      audio.pause();
+      updateState(false);
+    };
+
+    const toggleAudio = () => {
+      if (isPlaying) {
+        pauseAudio();
+      } else {
+        playAudio();
+      }
+    };
+
+    if (btn) btn.addEventListener("click", (e) => { e.stopPropagation(); toggleAudio(); });
+    if (trigger) trigger.addEventListener("click", toggleAudio);
+
+    // Initial autoplay attempt
+    playAudio();
+
+    // Interaction fallback for browsers blocking autoplay before gesture
+    const unlockOnGesture = () => {
+      if (!isPlaying) {
+        playAudio();
+      }
+      window.removeEventListener("pointerdown", unlockOnGesture);
+      window.removeEventListener("keydown", unlockOnGesture);
+      window.removeEventListener("scroll", unlockOnGesture);
+      window.removeEventListener("touchstart", unlockOnGesture);
+    };
+
+    window.addEventListener("pointerdown", unlockOnGesture, { once: true });
+    window.addEventListener("keydown", unlockOnGesture, { once: true });
+    window.addEventListener("scroll", unlockOnGesture, { once: true });
+    window.addEventListener("touchstart", unlockOnGesture, { once: true });
+  }
+
+
   initHeroMusicos() {
     const stage = document.querySelector("[data-wm-hero-stage]");
     if (!stage) return;
@@ -1839,6 +1951,7 @@ class Component extends DCLogic {
     };
 
     const play = (id) => {
+      if (window.__wmBgAudio) window.__wmBgAudio.pause();
       current = id;
       mark(id);
       let frame = box.querySelector("iframe");

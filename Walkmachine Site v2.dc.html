@@ -325,6 +325,39 @@
           transform: scale(1.06);
         }
 
+        
+        /* ---- Sound Track Equalizer & Widget ---- */
+        @keyframes wm-eq-anim-1 { 0%, 100% { height: 4px; } 50% { height: 16px; } }
+        @keyframes wm-eq-anim-2 { 0%, 100% { height: 14px; } 50% { height: 5px; } }
+        @keyframes wm-eq-anim-3 { 0%, 100% { height: 7px; } 50% { height: 18px; } }
+        @keyframes wm-eq-anim-4 { 0%, 100% { height: 16px; } 50% { height: 6px; } }
+
+        .wm-eq-bar {
+          width: 3px;
+          background: #2F6FE0;
+          border-radius: 2px;
+          display: block;
+        }
+
+        .wm-audio-playing .wm-eq-1 { animation: wm-eq-anim-1 0.75s ease-in-out infinite alternate; }
+        .wm-audio-playing .wm-eq-2 { animation: wm-eq-anim-2 0.65s ease-in-out infinite alternate 0.15s; }
+        .wm-audio-playing .wm-eq-3 { animation: wm-eq-anim-3 0.85s ease-in-out infinite alternate 0.3s; }
+        .wm-audio-playing .wm-eq-4 { animation: wm-eq-anim-4 0.7s ease-in-out infinite alternate 0.2s; }
+
+        .wm-audio-paused .wm-eq-bar {
+          height: 3px !important;
+          animation: none !important;
+          opacity: 0.4;
+        }
+
+        @media (max-width: 768px) {
+          [data-wm-audio-widget] {
+            bottom: 84px !important;
+            left: 16px !important;
+            padding: 6px 12px 6px 8px !important;
+          }
+        }
+
         /* ---- Carrossel Contínuo de Músicos ---- */
   @keyframes wm-cards-marquee {
     0% { transform: translate3d(0, 0, 0); }
