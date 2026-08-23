@@ -638,6 +638,45 @@
           filter: contrast(1.08) saturate(1.08) drop-shadow(0 20px 45px rgba(0,0,0,0.9)) drop-shadow(0 0 35px rgba(47,111,224,0.35));
         }
 
+        
+        @keyframes wm-pulse-blue {
+          0% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(47, 111, 224, 0.7), 0 0 20px rgba(47, 111, 224, 0.5);
+          }
+          50% {
+            transform: scale(1.04);
+            box-shadow: 0 0 0 14px rgba(47, 111, 224, 0), 0 0 32px rgba(47, 111, 224, 0.85);
+          }
+          100% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(47, 111, 224, 0), 0 0 20px rgba(47, 111, 224, 0.5);
+          }
+        }
+
+        .wm-hero-btn-download {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          padding: 16px 34px;
+          border-radius: 999px;
+          background: #2F6FE0;
+          color: #ffffff !important;
+          font-size: 15px;
+          font-weight: 600;
+          letter-spacing: -0.01em;
+          text-decoration: none;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          animation: wm-pulse-blue 2.2s infinite ease-in-out;
+          transition: background 0.25s ease, transform 0.25s ease;
+        }
+
+        .wm-hero-btn-download:hover {
+          background: #4a86ef !important;
+          animation-play-state: paused;
+          transform: scale(1.06);
+        }
+
         /* ---- Carrossel Contínuo de Músicos ---- */
         @keyframes wm-cards-marquee {
           0% { transform: translate3d(0, 0, 0); }
@@ -1015,20 +1054,14 @@
               — com estrutura profissional e repertório que enche a pista.</p>
 
             <div data-wm-reveal=""
-              style="display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:flex-start; margin-bottom:18px">
-              <a href="{{ waLink }}" target="_blank" rel="noreferrer"
-                style="display:inline-flex; align-items:center; padding:13px 26px; border-radius:999px; background:#2F6FE0; color:#fff; font-size:14px; font-weight:500; box-shadow:0 0 22px rgba(47,111,224,.45); transition:all .25s ease"
-                style-hover="background:#4a86ef;box-shadow:0 0 28px rgba(47,111,224,.7)">Consultar disponibilidade</a>
-              <a href="#propostas"
-                style="display:inline-flex; align-items:center; padding:13px 26px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03); color:#f7f7f8; font-size:14px; font-weight:500; transition:all .25s ease"
-                style-hover="border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.08)">Ver propostas</a>
+              style="display:flex; align-items:center; justify-content:flex-start; margin-bottom:18px">
               <a href="WALKMACHINE APRESENTAÇÃO FINAL_compressed.pdf" download="WALKMACHINE APRESENTAÇÃO FINAL.pdf"
-                target="_blank" rel="noreferrer"
-                style="display:inline-flex; align-items:center; gap:8px; padding:13px 24px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.06); backdrop-filter:blur(10px); color:#ffffff; font-size:13px; font-weight:500; box-shadow:0 6px 20px rgba(0,0,0,.35); transition:all .25s ease"
-                style-hover="background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.4);box-shadow:0 0 24px rgba(255,255,255,.2)">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                target="_blank" rel="noreferrer" class="wm-hero-btn-download"
+                style="display:inline-flex; align-items:center; gap:10px; padding:16px 34px; border-radius:999px; background:#2F6FE0; border:1px solid rgba(255,255,255,.2); color:#ffffff; font-size:15px; font-weight:600; text-decoration:none; animation:wm-pulse-blue 2.2s infinite ease-in-out; transition:all .25s ease"
+                style-hover="background:#4a86ef;transform:scale(1.06)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
-                  style="color:#C22C2C; filter:drop-shadow(0 0 6px rgba(194,44,44,.6))">
+                  style="color:#ffffff; filter:drop-shadow(0 0 4px rgba(255,255,255,.6))">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                   <polyline points="7 10 12 15 17 10"></polyline>
                   <line x1="12" y1="15" x2="12" y2="3"></line>
