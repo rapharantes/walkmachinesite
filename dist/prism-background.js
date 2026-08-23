@@ -169,17 +169,18 @@ function initPrism(container, options = {}) {
 
       o = tanh4(o * o * (uGlow * uBloom) / 1e5);
 
-      // Walkmachine palette: the raw rainbow is remapped onto blue -> red with chrome highlights.
+      // Walkmachine palette: 2 distinct rotating beams (Beam 1 = Vivid Blue, Beam 2 = Vivid Red)
       vec3 raw = clamp(o.rgb, 0.0, 1.0);
       float L = dot(raw, vec3(0.2126, 0.7152, 0.0722));
-      // Hard-split ramp: mid values are rare, so the blend never passes through violet.
-      float ramp = clamp((raw.r - raw.b) * 0.9 + 0.42, 0.0, 1.0);
-      float rr = smoothstep(0.46, 0.80, ramp);
-      rr = rr * rr;
-      vec3 blue = vec3(0.184, 0.435, 0.878);
-      vec3 red  = vec3(0.761, 0.173, 0.173);
-      vec3 col = (blue * (1.0 - rr) + red * rr * 1.15) * (L * 1.35);
-      col += vec3(0.92, 0.94, 1.0) * pow(L, 3.2) * 0.6;
+      
+      // Separate the two rotating lobes cleanly: one pure blue, one pure stage red
+      float beamAngle = atan(f.y, f.x) + iTime * uTimeScale * 0.85;
+      float isRed = smoothstep(-0.2, 0.2, sin(beamAngle));
+      
+      vec3 blue = vec3(0.18, 0.44, 0.94);
+      vec3 red  = vec3(0.94, 0.12, 0.16);
+      vec3 col = mix(blue, red, isRed) * (L * 1.55);
+      col += vec3(1.0, 0.96, 0.94) * pow(L, 3.0) * 0.5;
       float n = rand(gl_FragCoord.xy + vec2(iTime));
       col += (n - 0.5) * uNoise * 0.35;
       col = clamp(mix(vec3(dot(col, vec3(0.2126,0.7152,0.0722))), col, uSaturation), 0.0, 1.0);
