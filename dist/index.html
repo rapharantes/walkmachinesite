@@ -1715,31 +1715,16 @@
             <!-- Audio Element Oficial Foo Fighters - Learn to Fly -->
       <audio id="wm-bg-audio" src="assets/audio/learn-to-fly-instrumental.mp3" autoplay loop preload="auto" playsinline webkit-playsinline></audio>
 
-      <!-- Floating Sound Track Controller (Foo Fighters - Learn to Fly) -->
+      <!-- Floating Compact Audio Button (Foo Fighters - Learn to Fly) -->
       <div id="wm-audio-widget" class="wm-audio-widget wm-audio-paused"
-        style="position:fixed; bottom:24px; left:24px; z-index:45; display:flex; align-items:center; gap:10px; padding:8px 16px 8px 10px; border-radius:999px; background:rgba(12,14,18,.94); border:1px solid rgba(255,255,255,.16); backdrop-filter:blur(16px); box-shadow:0 12px 35px rgba(0,0,0,.7), 0 0 20px rgba(47,111,224,.25); transition:all .3s ease">
-        <button id="wm-audio-btn" type="button" aria-label="Controlar trilha sonora"
-          style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; border:0; background:#2F6FE0; color:#fff; cursor:pointer; padding:0; box-shadow:0 0 16px rgba(47,111,224,.6); transition:transform .2s ease, background .2s ease"
-          style-hover="transform:scale(1.08);background:#4a86ef">
-          <svg id="wm-audio-icon-play" style="display:block; width:15px; height:15px; margin-left:2px" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          <svg id="wm-audio-icon-pause" style="display:none; width:15px; height:15px" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+        style="position:fixed; bottom:24px; left:24px; z-index:45">
+        <button id="wm-audio-btn" type="button" aria-label="Tocar ou pausar trilha sonora"
+          title="Trilha Sonora: Foo Fighters - Learn to Fly (Clique para pausar/tocar)"
+          style="display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,.2); background:rgba(15,17,23,.92); color:#fff; cursor:pointer; padding:0; backdrop-filter:blur(12px); box-shadow:0 8px 24px rgba(0,0,0,.7), 0 0 16px rgba(47,111,224,.35); transition:transform .2s ease, background .2s ease, box-shadow .2s ease"
+          style-hover="transform:scale(1.1);border-color:#2F6FE0;box-shadow:0 12px 30px rgba(0,0,0,.8), 0 0 24px rgba(47,111,224,.65)">
+          <svg id="wm-audio-icon-play" style="display:block; width:18px; height:18px; margin-left:2px; fill:#2F6FE0" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <svg id="wm-audio-icon-pause" style="display:none; width:18px; height:18px; fill:#2F6FE0" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
         </button>
-
-        <div style="display:flex; flex-direction:column; gap:1px; user-select:none; cursor:pointer" id="wm-audio-trigger">
-          <div style="display:flex; align-items:center; gap:6px">
-            <span style="font-family:'Barlow Condensed',Impact,sans-serif; font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:#ffffff">Foo Fighters</span>
-            <span style="color:rgba(255,255,255,.3); font-size:10px">·</span>
-            <span style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.08em; color:#8fb0ea; text-transform:uppercase">Learn to Fly</span>
-          </div>
-          <div style="font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.04em; color:#a1a1aa">Trilha Sonora Oficial</div>
-        </div>
-
-        <div id="wm-equalizer" style="display:flex; align-items:flex-end; gap:3px; height:16px; margin-left:4px">
-          <span class="wm-eq-bar wm-eq-1"></span>
-          <span class="wm-eq-bar wm-eq-2"></span>
-          <span class="wm-eq-bar wm-eq-3"></span>
-          <span class="wm-eq-bar wm-eq-4"></span>
-        </div>
       </div>
 
       <a href="{{ waFloatLink }}" target="_blank" rel="noreferrer" class="wm-floating-wa"
