@@ -1713,7 +1713,7 @@
       </section>
 
             <!-- Audio Element Oficial Foo Fighters - Learn to Fly -->
-      <audio id="wm-bg-audio" src="assets/audio/learn-to-fly-instrumental.mp3" loop preload="auto" playsinline webkit-playsinline></audio>
+      <audio id="wm-bg-audio" src="assets/audio/learn-to-fly-instrumental.mp3" autoplay loop preload="auto" playsinline webkit-playsinline></audio>
 
       <!-- Floating Sound Track Controller (Foo Fighters - Learn to Fly) -->
       <div id="wm-audio-widget" class="wm-audio-widget wm-audio-paused"
@@ -2313,6 +2313,139 @@ class Component extends DCLogic {
 }
 
 </script>
+  <script>
+  (function() {
+    function initWmAudio() {
+      var audio = document.getElementById("wm-bg-audio");
+      if (!audio) {
+        audio = document.createElement("audio");
+        audio.id = "wm-bg-audio";
+        audio.src = "assets/audio/learn-to-fly-instrumental.mp3";
+        audio.loop = true;
+        audio.preload = "auto";
+        audio.setAttribute("playsinline", "");
+        audio.setAttribute("webkit-playsinline", "");
+        document.body.appendChild(audio);
+      }
+      audio.loop = true;
+      audio.preload = "auto";
+      window.__wmBgAudio = audio;
+
+      var widget = document.getElementById("wm-audio-widget");
+      var btn = document.getElementById("wm-audio-btn");
+      var trigger = document.getElementById("wm-audio-trigger");
+      var iconPlay = document.getElementById("wm-audio-icon-play");
+      var iconPause = document.getElementById("wm-audio-icon-pause");
+
+      function updateWidget(playing) {
+        if (!widget) widget = document.getElementById("wm-audio-widget");
+        if (!btn) btn = document.getElementById("wm-audio-btn");
+        if (!iconPlay) iconPlay = document.getElementById("wm-audio-icon-play");
+        if (!iconPause) iconPause = document.getElementById("wm-audio-icon-pause");
+        
+        if (widget) {
+          if (playing) {
+            widget.classList.add("wm-audio-playing");
+            widget.classList.remove("wm-audio-paused");
+            if (iconPlay) iconPlay.style.display = "none";
+            if (iconPause) iconPause.style.display = "block";
+          } else {
+            widget.classList.remove("wm-audio-playing");
+            widget.classList.add("wm-audio-paused");
+            if (iconPlay) iconPlay.style.display = "block";
+            if (iconPause) iconPause.style.display = "none";
+          }
+        }
+      }
+
+      function tryPlayUnmuted() {
+        audio.muted = false;
+        audio.volume = 0.45;
+        var p = audio.play();
+        if (p !== undefined) {
+          p.then(function() {
+            updateWidget(true);
+          }).catch(function() {
+            // If browser blocks unmuted audio on first load, start muted to guarantee playback
+            audio.muted = true;
+            audio.play().then(function() {
+              updateWidget(true);
+            }).catch(function() {});
+          });
+        }
+      }
+
+      function unmuteAndPlay() {
+        audio.muted = false;
+        audio.volume = 0.45;
+        if (audio.paused) {
+          audio.play().then(function() {
+            updateWidget(true);
+          }).catch(function() {});
+        } else {
+          updateWidget(true);
+        }
+        removeUnlockers();
+      }
+
+      var unlockEvents = [
+        "pointerdown", "touchstart", "touchend", "mousedown", 
+        "click", "scroll", "keydown", "wheel", "mousemove"
+      ];
+
+      function removeUnlockers() {
+        unlockEvents.forEach(function(evt) {
+          window.removeEventListener(evt, unmuteAndPlay, true);
+          document.removeEventListener(evt, unmuteAndPlay, true);
+        });
+      }
+
+      unlockEvents.forEach(function(evt) {
+        window.addEventListener(evt, unmuteAndPlay, { capture: true, passive: true });
+        document.addEventListener(evt, unmuteAndPlay, { capture: true, passive: true });
+      });
+
+      if (btn) {
+        btn.addEventListener("click", function(e) {
+          e.stopPropagation();
+          if (audio.paused) {
+            audio.muted = false;
+            audio.volume = 0.45;
+            audio.play().then(function() { updateWidget(true); });
+          } else {
+            audio.pause();
+            updateWidget(false);
+          }
+        });
+      }
+
+      if (trigger) {
+        trigger.addEventListener("click", function() {
+          if (audio.paused) {
+            audio.muted = false;
+            audio.volume = 0.45;
+            audio.play().then(function() { updateWidget(true); });
+          } else {
+            audio.pause();
+            updateWidget(false);
+          }
+        });
+      }
+
+      audio.addEventListener("play", function() { updateWidget(true); });
+      audio.addEventListener("pause", function() { updateWidget(false); });
+
+      // Immediate attempt when site opens
+      tryPlayUnmuted();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initWmAudio);
+    } else {
+      initWmAudio();
+    }
+  })();
+  </script>
 </body>
 
 </html>
