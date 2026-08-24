@@ -351,6 +351,7 @@
         }
 
         @media (max-width: 768px) {
+          .wm-contato-grid { grid-template-columns: minmax(0, 1fr) !important; gap: 36px !important; }
           [data-wm-audio-widget] {
             bottom: 84px !important;
             left: 16px !important;
@@ -402,6 +403,7 @@
     transform: scale(1.03);
   }
   @media (max-width: 768px) {
+          .wm-contato-grid { grid-template-columns: minmax(0, 1fr) !important; gap: 36px !important; }
     .wm-musico-card { flex: 0 0 190px; }
   }
 
@@ -890,24 +892,73 @@
     </div>
   </section>
 
-  <section id="contato" style="position:relative; z-index:10; max-width:1180px; margin:0 auto; padding:120px 24px 90px">
-    <div data-wm-card="" style="position:relative; overflow:hidden; border-radius:32px; border:1px solid rgba(255,255,255,.08); background:rgba(24,24,27,.5); padding:70px 56px; box-shadow:0 40px 120px rgba(0,0,0,.8)">
-      <div style="position:absolute; left:-120px; top:-120px; width:420px; height:420px; border-radius:50%; filter:blur(70px); opacity:.35; background:radial-gradient(circle at center,#2F6FE0,transparent 62%); pointer-events:none"></div>
-      <div style="position:absolute; right:-100px; bottom:-140px; width:420px; height:420px; border-radius:50%; filter:blur(70px); opacity:.28; background:radial-gradient(circle at center,#C22C2C,transparent 62%); pointer-events:none"></div>
-      <div style="position:relative">
-        <h2 data-wm-reveal="" style="margin:0 0 22px; font-family:'Barlow Condensed',Impact,sans-serif; font-weight:600; font-size:clamp(38px,5.6vw,80px); line-height:.96; letter-spacing:-.03em; text-transform:uppercase; background:linear-gradient(180deg,#ffffff,#a1a1aa 62%,#e4e4e7); -webkit-background-clip:text; background-clip:text; color:transparent; max-width:18ch">Vamos fazer o seu evento acontecer?</h2>
-        <p data-wm-reveal="" style="margin:0 0 40px; max-width:52ch; font-size:17px; line-height:1.6; color:#e7e7ea">Consulte datas disponíveis, monte o formato ideal e receba a proposta fechada para o seu evento.</p>
-        <div data-wm-reveal="" style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom:56px">
-          <a href="{{ waLink }}" target="_blank" rel="noreferrer" style="display:inline-flex; align-items:center; padding:16px 32px; border-radius:999px; background:#2F6FE0; color:#fff; font-size:15px; font-weight:500; box-shadow:0 0 26px rgba(47,111,224,.5)" style-hover="background:#4a86ef">{{ waLabel }}</a>
-          <a href="{{ instaLink }}" target="_blank" rel="noreferrer" style="display:inline-flex; align-items:center; padding:16px 32px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); color:#f7f7f8; font-size:15px; font-weight:500" style-hover="border-color:#C22C2C;background:rgba(194,44,44,.12)">{{ instaLabel }}</a>
+  <section id="contato"
+        style="position:relative; z-index:10; max-width:1180px; margin:0 auto; padding:120px 24px 90px">
+        <div data-wm-card=""
+          style="position:relative; overflow:hidden; border-radius:32px; border:1px solid rgba(255,255,255,.08); background:rgba(24,24,27,.5); padding:70px 56px; box-shadow:0 40px 120px rgba(0,0,0,.8)">
+          <div
+            style="position:absolute; left:-120px; top:-120px; width:420px; height:420px; border-radius:50%; filter:blur(70px); opacity:.35; background:radial-gradient(circle at center,#2F6FE0,transparent 62%); pointer-events:none">
+          </div>
+          <div
+            style="position:absolute; right:-100px; bottom:-140px; width:420px; height:420px; border-radius:50%; filter:blur(70px); opacity:.28; background:radial-gradient(circle at center,#C22C2C,transparent 62%); pointer-events:none">
+          </div>
+          
+          <div style="position:relative; display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr); gap:48px; align-items:center" class="wm-contato-grid">
+            
+            <!-- LADO ESQUERDO: CTA Principal e Contatos da Walkmachine -->
+            <div>
+              <h2 data-wm-reveal=""
+                style="margin:0 0 22px; font-family:'Barlow Condensed',Impact,sans-serif; font-weight:600; font-size:clamp(38px,5.2vw,76px); line-height:.96; letter-spacing:-.03em; text-transform:uppercase; background:linear-gradient(180deg,#ffffff,#a1a1aa 62%,#e4e4e7); -webkit-background-clip:text; background-clip:text; color:transparent; max-width:18ch">
+                Vamos fazer o seu evento acontecer?</h2>
+              <p data-wm-reveal=""
+                style="margin:0 0 36px; max-width:48ch; font-size:17px; line-height:1.6; color:#e7e7ea">Consulte datas
+                disponíveis, monte o formato ideal e receba a proposta fechada para o seu evento.</p>
+              <div data-wm-reveal="" style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom:20px">
+                <a href="{{ waLink }}" target="_blank" rel="noreferrer"
+                  style="display:inline-flex; align-items:center; padding:16px 32px; border-radius:999px; background:#2F6FE0; color:#fff; font-size:15px; font-weight:500; box-shadow:0 0 26px rgba(47,111,224,.5)"
+                  style-hover="background:#4a86ef">{{ waLabel }}</a>
+                <a href="{{ instaLink }}" target="_blank" rel="noreferrer"
+                  style="display:inline-flex; align-items:center; padding:16px 32px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); color:#f7f7f8; font-size:15px; font-weight:500"
+                  style-hover="border-color:#C22C2C;background:rgba(194,44,44,.12)">{{ instaLabel }}</a>
+              </div>
+            </div>
+
+            <!-- LADO DIREITO: Produção Viva Acústicos -->
+            <div data-wm-reveal=""
+              style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:36px 32px; border-radius:24px; background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.08); backdrop-filter:blur(10px)">
+              <span
+                style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:#c4c4cc; margin-bottom:16px; display:block">
+                Produzido por
+              </span>
+              
+              <a href="https://www.vivaacusticos.com.br" target="_blank" rel="noopener noreferrer"
+                title="Acessar site da Viva Acústicos"
+                style="display:inline-flex; align-items:center; justify-content:center; transition:transform .25s ease; margin-bottom:20px"
+                style-hover="transform:scale(1.06)">
+                <img src="assets/viva-acusticos-logo.png" alt="Viva Acústicos Produções"
+                  style="width:min(230px,80vw); height:auto; display:block; filter:drop-shadow(0 8px 24px rgba(0,0,0,.7))" />
+              </a>
+
+              <a href="https://www.instagram.com/vivaacusticos/" target="_blank" rel="noopener noreferrer"
+                style="display:inline-flex; align-items:center; gap:8px; padding:11px 22px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.04); color:#f7f7f8; font-size:13px; font-weight:500; text-decoration:none; transition:all .25s ease"
+                style-hover="border-color:#E1306C;background:rgba(225,48,108,.15);color:#ffffff">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:#E1306C"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                @vivaacusticos
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Rodapé com Logomarca Walkmachine -->
+          <div
+            style="display:flex; flex-wrap:wrap; gap:32px; align-items:center; justify-content:space-between; padding-top:36px; margin-top:36px; border-top:1px solid rgba(255,255,255,.1)">
+            <img src="assets/wordmark.png" alt="Walkmachine" style="height:34px; width:auto; display:block" />
+            <div
+              style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#a8a8b2">
+              Rock pop nacional e internacional · Belo Horizonte / MG</div>
+          </div>
         </div>
-        <div style="display:flex; flex-wrap:wrap; gap:32px; align-items:center; justify-content:space-between; padding-top:32px; border-top:1px solid rgba(255,255,255,.1)">
-          <img src="assets/wordmark.png" alt="Walkmachine" style="height:34px; width:auto; display:block" />
-          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#a8a8b2">Rock pop nacional e internacional · Belo Horizonte / MG</div>
-        </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
   <a href="{{ waFloatLink }}" target="_blank" rel="noreferrer" class="wm-floating-wa" aria-label="Fale com a Banda Walkmachine no WhatsApp" title="Fale com a Banda Walkmachine">
     <span class="wm-wa-pulse-ring"></span>
