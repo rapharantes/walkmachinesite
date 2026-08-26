@@ -1891,20 +1891,45 @@ class Component extends DCLogic {
 
     // Autoplay com som so e liberado depois de um gesto. Comecamos mudo (isso os
     // navegadores permitem) e ligamos o som no primeiro toque real do usuario.
-    var gestos = ["pointerdown", "touchstart", "keydown"];
+    // Clique, tecla e toque liberam som em qualquer navegador. Rolagem so conta
+    // no celular (o swipe termina em touchend); no desktop a roda do mouse nao
+    // conta como gesto, entao a tentativa falha em silencio e o clique resolve.
+    var gestos = ["pointerdown", "pointerup", "touchstart", "touchend", "click", "keydown", "wheel", "scroll"];
+
+    function soltarGestos() {
+      gestos.forEach(function (g) {
+        document.removeEventListener(g, noPrimeiroGesto, true);
+        window.removeEventListener(g, noPrimeiroGesto, true);
+      });
+    }
+
     function noPrimeiroGesto(ev) {
-      // Clique no proprio botao: quem decide e o handler do botao.
-      if (widget && ev && ev.target && widget.contains(ev.target)) return;
-      gestos.forEach(function (g) { document.removeEventListener(g, noPrimeiroGesto, true); });
-      if (userPaused) return;
+      // O botao da trilha tem handler proprio: nao competir com ele.
+      if (widget && ev && ev.target && widget.nodeType === 1 && widget.contains(ev.target)) return;
+      if (userPaused) { soltarGestos(); return; }
+      if (tocando()) { soltarGestos(); return; }
+
       audio.muted = false;
       audio.volume = VOL;
-      if (audio.paused) { var q = audio.play(); if (q) q.catch(function () {}); }
+      var q = audio.play();
+      if (q && q.then) {
+        q.then(function () { soltarGestos(); paint(); })
+         .catch(function () {
+           // Navegador ainda nao aceitou (ex.: roda do mouse no desktop).
+           // Volta ao mudo e continua esperando um gesto de verdade.
+           if (!userPaused) { audio.muted = true; var r = audio.play(); if (r && r.catch) r.catch(function () {}); }
+           paint();
+         });
+      } else {
+        soltarGestos();
+      }
       paint();
     }
+
     function armarGesto() {
       gestos.forEach(function (g) {
         document.addEventListener(g, noPrimeiroGesto, { capture: true, passive: true });
+        window.addEventListener(g, noPrimeiroGesto, { capture: true, passive: true });
       });
     }
 
@@ -1914,6 +1939,7 @@ class Component extends DCLogic {
         ev.stopPropagation();
         if (tocando()) {
           userPaused = true;
+          soltarGestos();
           audio.pause();
         } else {
           userPaused = false;
