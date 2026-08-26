@@ -1799,7 +1799,7 @@
       </section>
 
             <!-- Audio Element Oficial Foo Fighters - Learn to Fly -->
-      <audio id="wm-bg-audio" src="learn-to-fly-instrumental.mp3" loop preload="auto" playsinline webkit-playsinline></audio></audio>
+      <audio id="wm-bg-audio" src="learn-to-fly-instrumental.mp3" loop preload="auto" playsinline webkit-playsinline></audio>
 
       <!-- Floating Compact Audio Button (Foo Fighters - Learn to Fly) -->
       <div id="wm-audio-widget" class="wm-audio-widget wm-audio-paused"
@@ -1845,83 +1845,108 @@ class Component extends DCLogic {
   }
 
   initBackgroundAudio() {
-    const audio = document.getElementById("wm-bg-audio");
+    var audio = document.getElementById("wm-bg-audio");
     if (!audio) return;
 
-    const widget = document.getElementById("wm-audio-widget");
-    const btn = document.getElementById("wm-audio-btn");
-    const trigger = document.getElementById("wm-audio-trigger");
-    const iconPlay = document.getElementById("wm-audio-icon-play");
-    const iconPause = document.getElementById("wm-audio-icon-pause");
+    var widget = document.getElementById("wm-audio-widget");
+    var btn = document.getElementById("wm-audio-btn");
+    var iconPlay = document.getElementById("wm-audio-icon-play");
+    var iconPause = document.getElementById("wm-audio-icon-pause");
+    var VOL = 0.45;
 
-    audio.volume = 0.45;
+    audio.loop = true;
+    audio.volume = VOL;
     window.__wmBgAudio = audio;
 
-    const updateState = (playing) => {
+    // Enquanto userPaused for true nada religa a musica sozinho.
+    var userPaused = false;
+    try { userPaused = localStorage.getItem("wm-audio-paused") === "1"; } catch (e) {}
+
+    function tocando() {
+      return !audio.paused && !audio.ended && !audio.muted;
+    }
+
+    function paint() {
+      var on = tocando();
       if (widget) {
-        if (playing) {
-          widget.classList.add("wm-audio-playing");
-          widget.classList.remove("wm-audio-paused");
-          if (iconPlay) iconPlay.style.display = "none";
-          if (iconPause) iconPause.style.display = "block";
-        } else {
-          widget.classList.remove("wm-audio-playing");
-          widget.classList.add("wm-audio-paused");
-          if (iconPlay) iconPlay.style.display = "block";
-          if (iconPause) iconPause.style.display = "none";
-        }
+        widget.classList.toggle("wm-audio-playing", on);
+        widget.classList.toggle("wm-audio-paused", !on);
       }
-    };
-
-    const playAudio = () => {
-      const promise = audio.play();
-      if (promise !== undefined) {
-        promise.then(() => {
-          updateState(true);
-        }).catch((err) => {
-          updateState(false);
-        });
+      if (iconPlay) iconPlay.style.display = on ? "none" : "block";
+      if (iconPause) iconPause.style.display = on ? "block" : "none";
+      if (btn) {
+        btn.setAttribute("aria-pressed", String(on));
+        btn.setAttribute("aria-label", on ? "Pausar trilha sonora" : "Tocar trilha sonora");
+        btn.title = on ? "Pausar trilha sonora" : "Tocar trilha sonora";
       }
-    };
+    }
 
-    const pauseAudio = () => {
-      audio.pause();
-      updateState(false);
-    };
+    function lembrar() {
+      try { localStorage.setItem("wm-audio-paused", userPaused ? "1" : "0"); } catch (e) {}
+    }
 
-    const toggleAudio = () => {
-      if (audio.paused) {
-        playAudio();
-      } else {
-        pauseAudio();
-      }
-    };
-
-    if (btn) btn.addEventListener("click", (e) => { e.stopPropagation(); toggleAudio(); });
-    if (trigger) trigger.addEventListener("click", toggleAudio);
-
-    audio.addEventListener("play", () => updateState(true));
-    audio.addEventListener("pause", () => updateState(false));
-
-    // 1. Try immediate autoplay
-    playAudio();
-
-    // 2. Global user interaction listener to unlock autoplay on mobile devices (iOS / Android)
-    const unlockEvents = ["touchstart", "touchend", "pointerdown", "mousedown", "click", "scroll", "keydown", "wheel"];
-    const unlockOnInteraction = () => {
-      if (audio.paused) {
-        playAudio();
-      }
-      unlockEvents.forEach(evt => {
-        window.removeEventListener(evt, unlockOnInteraction, { capture: true });
-        document.removeEventListener(evt, unlockOnInteraction, { capture: true });
-      });
-    };
-
-    unlockEvents.forEach(evt => {
-      window.addEventListener(evt, unlockOnInteraction, { once: true, capture: true, passive: true });
-      document.addEventListener(evt, unlockOnInteraction, { once: true, capture: true, passive: true });
+    ["play", "playing", "pause", "ended", "volumechange"].forEach(function (evt) {
+      audio.addEventListener(evt, paint);
     });
+
+    // Autoplay com som so e liberado depois de um gesto. Comecamos mudo (isso os
+    // navegadores permitem) e ligamos o som no primeiro toque real do usuario.
+    var gestos = ["pointerdown", "touchstart", "keydown"];
+    function noPrimeiroGesto(ev) {
+      // Clique no proprio botao: quem decide e o handler do botao.
+      if (widget && ev && ev.target && widget.contains(ev.target)) return;
+      gestos.forEach(function (g) { document.removeEventListener(g, noPrimeiroGesto, true); });
+      if (userPaused) return;
+      audio.muted = false;
+      audio.volume = VOL;
+      if (audio.paused) { var q = audio.play(); if (q) q.catch(function () {}); }
+      paint();
+    }
+    function armarGesto() {
+      gestos.forEach(function (g) {
+        document.addEventListener(g, noPrimeiroGesto, { capture: true, passive: true });
+      });
+    }
+
+    if (btn) {
+      btn.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        if (tocando()) {
+          userPaused = true;
+          audio.pause();
+        } else {
+          userPaused = false;
+          audio.muted = false;
+          audio.volume = VOL;
+          var q = audio.play();
+          if (q) q.then(paint).catch(function () {});
+        }
+        lembrar();
+        paint();
+      });
+    }
+
+    if (userPaused) {
+      audio.pause();
+      paint();
+      return;
+    }
+
+    audio.muted = false;
+    var pr = audio.play();
+    if (pr && pr.catch) {
+      pr.then(paint).catch(function () {
+        audio.muted = true;
+        var q = audio.play();
+        if (q) q.catch(function () {});
+        armarGesto();
+        paint();
+      });
+    } else {
+      armarGesto();
+    }
+    paint();
   }
 
   initHeroMusicos() {
@@ -2384,130 +2409,6 @@ class Component extends DCLogic {
 }
 
 </script>
-  <script>
-  (function() {
-    var audio = null;
-    var isStarted = false;
-
-    function getOrCreateAudio() {
-      if (!audio) {
-        audio = document.getElementById("wm-bg-audio");
-        if (!audio) {
-          audio = document.createElement("audio");
-          audio.id = "wm-bg-audio";
-          audio.src = "learn-to-fly-instrumental.mp3";
-          audio.loop = true;
-          audio.preload = "auto";
-          audio.setAttribute("playsinline", "");
-          audio.setAttribute("webkit-playsinline", "");
-          document.body.appendChild(audio);
-        }
-      }
-      return audio;
-    }
-
-    function updateWidget(playing) {
-      var widget = document.getElementById("wm-audio-widget");
-      var iconPlay = document.getElementById("wm-audio-icon-play");
-      var iconPause = document.getElementById("wm-audio-icon-pause");
-      
-      if (widget) {
-        if (playing) {
-          widget.classList.add("wm-audio-playing");
-          widget.classList.remove("wm-audio-paused");
-          if (iconPlay) iconPlay.style.display = "none";
-          if (iconPause) iconPause.style.display = "block";
-        } else {
-          widget.classList.remove("wm-audio-playing");
-          widget.classList.add("wm-audio-paused");
-          if (iconPlay) iconPlay.style.display = "block";
-          if (iconPause) iconPause.style.display = "none";
-        }
-      }
-    }
-
-    function startAudioWithSound() {
-      var a = getOrCreateAudio();
-      a.muted = false;
-      a.volume = 0.45;
-      
-      var playPromise = a.play();
-      if (playPromise !== undefined) {
-        playPromise.then(function() {
-          isStarted = true;
-          updateWidget(true);
-        }).catch(function(err) {
-          // Autoplay policy prevented immediate sound without interaction
-          updateWidget(false);
-        });
-      }
-    }
-
-    function forcePlayOnGesture() {
-      var a = getOrCreateAudio();
-      a.muted = false;
-      a.volume = 0.45;
-      a.play().then(function() {
-        isStarted = true;
-        updateWidget(true);
-        removeUnlockEvents();
-      }).catch(function() {});
-    }
-
-    var gestureEvents = [
-      "click", "touchstart", "touchend", "pointerdown", "mousedown",
-      "scroll", "keydown", "wheel", "mousemove", "pointermove"
-    ];
-
-    function removeUnlockEvents() {
-      gestureEvents.forEach(function(evt) {
-        window.removeEventListener(evt, forcePlayOnGesture, true);
-        document.removeEventListener(evt, forcePlayOnGesture, true);
-      });
-    }
-
-    gestureEvents.forEach(function(evt) {
-      window.addEventListener(evt, forcePlayOnGesture, { capture: true, passive: true });
-      document.addEventListener(evt, forcePlayOnGesture, { capture: true, passive: true });
-    });
-
-    function setupButton() {
-      var btn = document.getElementById("wm-audio-btn");
-      if (btn) {
-        btn.onclick = function(e) {
-          e.stopPropagation();
-          var a = getOrCreateAudio();
-          if (a.paused) {
-            a.muted = false;
-            a.volume = 0.45;
-            a.play().then(function() {
-              updateWidget(true);
-            });
-          } else {
-            a.pause();
-            updateWidget(false);
-          }
-        };
-      }
-      var a = getOrCreateAudio();
-      a.onplay = function() { updateWidget(true); };
-      a.onpause = function() { updateWidget(false); };
-    }
-
-    // Try starting sound immediately on script run
-    startAudioWithSound();
-
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", function() {
-        setupButton();
-        startAudioWithSound();
-      });
-    } else {
-      setupButton();
-      startAudioWithSound();
-    }
-  })();
-  </script>
 </body>
 
 </html>
