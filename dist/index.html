@@ -526,6 +526,11 @@
           box-shadow: 0 0 0 1px #C22C2C, 0 0 26px rgba(194, 44, 44, .35);
         }
 
+        [data-wm-track="trio"] [data-wm-thumb][aria-current="true"] {
+          border-color: #2F6FE0 !important;
+          box-shadow: 0 0 0 1px #2F6FE0, 0 0 26px rgba(47, 111, 224, .45);
+        }
+
         [data-wm-thumb][aria-current="true"] img {
           opacity: 1;
         }
@@ -1361,16 +1366,53 @@
         <h2 data-wm-reveal=""
           style="margin:0 0 14px; font-family:'Barlow Condensed',Impact,sans-serif; font-weight:600; font-size:clamp(32px,4.4vw,60px); line-height:1.04; letter-spacing:-.03em; text-transform:uppercase; background:linear-gradient(180deg,#ffffff,#a1a1aa 62%,#e4e4e7); -webkit-background-clip:text; background-clip:text; color:transparent">
           Quem já contratou a banda</h2>
-        <p data-wm-reveal="" style="margin:0 0 44px; max-width:52ch; font-size:16px; line-height:1.6; color:#c4c4cc">
-          Eventos corporativos, casamentos e casas de show em Belo Horizonte e região.</p>
-        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px">
-          <sc-for list="{{ clienteSlots }}" as="c" hint-placeholder-count="12">
-            <div data-wm-card="" title="{{ c.nome }}"
-              style="position:relative; flex:0 1 168px; max-width:200px; aspect-ratio:3/2; border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,.06); background:rgba(255,255,255,.02)">
-              <img src="{{ c.img }}" alt="{{ c.nome }}" loading="lazy"
-                style="position:absolute; inset:14% 12%; width:76%; height:72%; object-fit:contain; opacity:.72; filter:grayscale(1) brightness(1.35); transition:opacity .35s ease, filter .35s ease" />
-            </div>
-          </sc-for>
+        <p data-wm-reveal="" style="margin:0 0 44px; max-width:56ch; font-size:16px; line-height:1.6; color:#c4c4cc">
+          Bares, restaurantes e casas noturnas renomadas, além de grandes empresas e eventos corporativos em Belo Horizonte e região.</p>
+
+        <!-- Sub-bloco 1: Bares, Pubs & Casas de Show (Marcas de peso no início) -->
+        <div style="margin-bottom:44px">
+          <div data-wm-reveal=""
+            style="display:flex; align-items:center; gap:10px; margin-bottom:20px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#2F6FE0">
+            <span style="width:18px; height:1px; background:#2F6FE0"></span>
+            <span>Bares, Pubs & Casas de Show</span>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px">
+            <sc-for list="{{ clientesBares }}" as="c" hint-placeholder-count="11">
+              <div data-wm-card="" title="{{ c.nome }}"
+                style="position:relative; flex:0 1 168px; max-width:200px; aspect-ratio:3/2; border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,.07); background:rgba(255,255,255,.02); transition:border-color .3s ease, transform .3s ease"
+                style-hover="border-color:rgba(47,111,224,.6);transform:translateY(-3px)">
+                <img src="{{ c.img }}" alt="{{ c.nome }}" loading="lazy"
+                  style="position:absolute; inset:14% 12%; width:76%; height:72%; object-fit:contain; opacity:.75; filter:grayscale(1) brightness(1.32); transition:opacity .35s ease, filter .35s ease" />
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- Sub-bloco 2: Empresas & Condomínios (Eventos Corporativos) -->
+        <div>
+          <div data-wm-reveal=""
+            style="display:flex; align-items:center; gap:10px; margin-bottom:20px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#C22C2C">
+            <span style="width:18px; height:1px; background:#C22C2C"></span>
+            <span>Empresas & Condomínios (Eventos Corporativos)</span>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:16px">
+            <sc-for list="{{ clientesEmpresas }}" as="c" hint-placeholder-count="2">
+              <div data-wm-card="" title="{{ c.nome }}"
+                style="position:relative; flex:0 1 240px; max-width:280px; padding:22px 26px; border-radius:18px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.025); display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center; transition:border-color .3s ease, transform .3s ease"
+                style-hover="border-color:rgba(194,44,44,.6);transform:translateY(-3px)">
+                <div style="position:relative; width:100%; height:64px; display:flex; align-items:center; justify-content:center">
+                  <img src="{{ c.img }}" alt="{{ c.nome }}" loading="lazy"
+                    style="max-width:85%; max-height:100%; object-fit:contain; opacity:.82; filter:grayscale(1) brightness(1.35); transition:opacity .35s ease, filter .35s ease" />
+                </div>
+                <div style="font-family:'Barlow Condensed',Impact,sans-serif; font-size:18px; font-weight:600; letter-spacing:.02em; text-transform:uppercase; color:#f0f0f2">
+                  {{ c.nome }}
+                </div>
+                <div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#a1a1aa">
+                  {{ c.subtitulo }}
+                </div>
+              </div>
+            </sc-for>
+          </div>
         </div>
       </section>
 
@@ -1421,96 +1463,215 @@
       </section>
 
       <section id="video" style="position:relative; z-index:10; max-width:1180px; margin:0 auto; padding:110px 24px">
-        <div
-          style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:28px">
-          <div>
-            <div data-wm-reveal=""
-              style="display:flex; align-items:center; gap:12px; margin-bottom:26px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:#C22C2C">
-              <span style="width:24px; height:1px; background:#C22C2C"></span><span>Vídeos</span>
-            </div>
-            <h2 data-wm-reveal=""
-              style="margin:0; font-family:'Barlow Condensed',Impact,sans-serif; font-weight:600; font-size:clamp(32px,4.4vw,60px); line-height:1.04; letter-spacing:-.03em; text-transform:uppercase; background:linear-gradient(180deg,#ffffff,#a1a1aa 62%,#e4e4e7); -webkit-background-clip:text; background-clip:text; color:transparent">
-              Veja e ouça a banda</h2>
-          </div>
-          <a data-wm-reveal="" href="{{ youtubeLink }}" target="_blank" rel="noreferrer"
-            style="display:inline-flex; align-items:center; padding:12px 24px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03); font-size:13px; font-weight:500; color:#f7f7f8"
-            style-hover="border-color:#C22C2C;background:rgba(194,44,44,.12)">Canal no YouTube</a>
-        </div>
-
-        <!-- Seletor de Formato: Banda Completa ou Trio Acústico -->
-        <div data-wm-reveal="" style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:22px">
-          <button data-wm-video-tab="banda" type="button" aria-selected="true"
-            style="display:inline-flex; align-items:center; gap:8px; padding:10px 22px; border-radius:999px; border:1px solid #2F6FE0; background:#2F6FE0; color:#ffffff; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; font-weight:600; cursor:pointer; box-shadow:0 0 24px rgba(47,111,224,.5); transition:all .25s ease">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-            Banda Completa
-          </button>
-          <button data-wm-video-tab="trio" type="button" aria-selected="false"
-            style="display:inline-flex; align-items:center; gap:8px; padding:10px 22px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03); color:#c4c4cc; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; font-weight:600; cursor:pointer; transition:all .25s ease"
-            style-hover="border-color:rgba(47,111,224,.6);color:#ffffff">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-            Trio Acústico
-          </button>
-        </div>
-
-        <div data-wm-reveal="" data-wm-player=""
-          style="position:relative; aspect-ratio:16/9; border-radius:24px; overflow:hidden; border:1px solid rgba(255,255,255,.08); box-shadow:0 30px 80px rgba(0,0,0,.7); background:#000">
-          <img data-wm-poster="" src="https://i.ytimg.com/vi/japEfLFX23U/maxresdefault.jpg" alt="Walkmachine ao vivo"
-            style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.62" />
-          <span data-wm-poster-veil=""
-            style="position:absolute; inset:0; background:radial-gradient(circle at 50% 45%,rgba(0,0,0,.18),rgba(0,0,0,.8))"></span>
-          <button data-wm-play="" type="button" aria-label="Assistir ao vídeo"
-            style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; width:100%; height:100%; border:0; background:transparent; cursor:pointer; color:#fff; font:inherit">
-            <span
-              style="display:flex; align-items:center; justify-content:center; width:82px; height:82px; border-radius:50%; background:rgba(194,44,44,.92); box-shadow:0 0 46px rgba(194,44,44,.55); transition:transform .35s cubic-bezier(.16,1,.3,1)">
-              <svg width="26" height="30" viewBox="0 0 26 30" fill="none" aria-hidden="true">
-                <path d="M25 15 0 30V0l25 15Z" fill="#fff" />
-              </svg>
-            </span>
-            <span
-              style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:rgba(255,255,255,.78)">Assistir
-              agora</span>
-          </button>
-        </div>
-
-        <div style="position:relative; margin-top:22px">
-          <button data-wm-prev="" type="button" aria-label="Vídeos anteriores"
-            style="position:absolute; left:-21px; top:50%; z-index:4; transform:translateY(-50%); display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,.14); background:rgba(9,9,11,.86); backdrop-filter:blur(10px); color:#fff; cursor:pointer"
-            style-hover="border-color:#2F6FE0">
-            <svg width="9" height="15" viewBox="0 0 9 15" fill="none" aria-hidden="true">
-              <path d="M8 1 1.5 7.5 8 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-          </button>
-          <button data-wm-next="" type="button" aria-label="Próximos vídeos"
-            style="position:absolute; right:-21px; top:50%; z-index:4; transform:translateY(-50%); display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,.14); background:rgba(9,9,11,.86); backdrop-filter:blur(10px); color:#fff; cursor:pointer"
-            style-hover="border-color:#2F6FE0">
-            <svg width="9" height="15" viewBox="0 0 9 15" fill="none" aria-hidden="true">
-              <path d="m1 1 6.5 6.5L1 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-          </button>
-          <div data-wm-track="" class="wm-track"
-            style="display:flex; gap:14px; overflow-x:auto; scroll-behavior:smooth; scroll-snap-type:x mandatory; padding:4px 2px 14px; -webkit-overflow-scrolling:touch">
-            <sc-for list="{{ videos }}" as="v" hint-placeholder-count="6">
-              <button data-wm-thumb="{{ v.id }}" type="button"
-                style="position:relative; flex:0 0 232px; scroll-snap-align:start; aspect-ratio:16/9; border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#0b0b0d; padding:0; cursor:pointer"
-                style-hover="border-color:rgba(47,111,224,.6)">
-                <img src="https://i.ytimg.com/vi/{{ v.id }}/mqdefault.jpg" alt="Trecho de show da Walkmachine"
-                  loading="lazy"
-                  style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.82; transition:opacity .35s ease, transform .6s cubic-bezier(.16,1,.3,1)" />
-                <span
-                  style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.72))"></span>
-                <span
-                  style="position:absolute; right:8px; bottom:8px; padding:3px 8px; border-radius:6px; background:rgba(9,9,11,.86); font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.06em; color:#f0f0f2">{{
-                  v.dur }}</span>
-              </button>
-            </sc-for>
-          </div>
+        
+        <!-- ==================== BLOCO 1: BANDA COMPLETA ==================== -->
+        <div id="video-banda" style="position:relative">
           <div
-            style="display:flex; align-items:center; gap:12px; margin-top:6px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#c4c4cc">
-            <span style="width:18px; height:1px; background:rgba(255,255,255,.22)"></span><span data-wm-playlist-label="">Trechos de shows · playlist Banda Completa</span>
+            style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:28px">
+            <div>
+              <div data-wm-reveal=""
+                style="display:flex; align-items:center; gap:12px; margin-bottom:24px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:#C22C2C">
+                <span style="width:24px; height:1px; background:#C22C2C"></span><span>Vídeos · Show ao Vivo</span>
+              </div>
+              <h2 data-wm-reveal=""
+                style="margin:0 0 10px; font-family:'Barlow Condensed',Impact,sans-serif; font-weight:600; font-size:clamp(32px,4.4vw,60px); line-height:1.04; letter-spacing:-.03em; text-transform:uppercase; background:linear-gradient(180deg,#ffffff,#a1a1aa 62%,#e4e4e7); -webkit-background-clip:text; background-clip:text; color:transparent">
+                Veja e ouça a banda</h2>
+              <div data-wm-reveal=""
+                style="display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:999px; background:rgba(194,44,44,.12); border:1px solid rgba(194,44,44,.35); font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#ff6b6b">
+                <span style="width:6px; height:6px; border-radius:50%; background:#C22C2C; box-shadow:0 0 8px #C22C2C"></span>
+                <span>Formato Banda Completa</span>
+              </div>
+            </div>
+            <a data-wm-reveal="" href="{{ youtubeLink }}" target="_blank" rel="noreferrer"
+              style="display:inline-flex; align-items:center; gap:8px; padding:12px 24px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03); font-size:13px; font-weight:500; color:#f7f7f8; transition:all .25s ease"
+              style-hover="border-color:#C22C2C;background:rgba(194,44,44,.15);box-shadow:0 0 24px rgba(194,44,44,.3)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              <span>Canal no YouTube</span>
+            </a>
+          </div>
+
+          <!-- Player Banda Completa (Destaque oXToA2oo8HQ) -->
+          <div data-wm-reveal="" data-wm-player="banda"
+            style="position:relative; aspect-ratio:16/9; border-radius:24px; overflow:hidden; border:1px solid rgba(255,255,255,.08); box-shadow:0 30px 80px rgba(0,0,0,.7); background:#000">
+            <img data-wm-poster="banda" src="https://i.ytimg.com/vi/oXToA2oo8HQ/maxresdefault.jpg" alt="Walkmachine Banda ao vivo"
+              style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.72" />
+            <span data-wm-poster-veil=""
+              style="position:absolute; inset:0; background:radial-gradient(circle at 50% 45%,rgba(0,0,0,.15),rgba(0,0,0,.82))"></span>
+            
+            <div style="position:absolute; top:20px; left:20px; z-index:2; display:inline-flex; align-items:center; gap:8px; padding:7px 16px; border-radius:999px; background:rgba(194,44,44,.88); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.2); font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:#fff; box-shadow:0 4px 20px rgba(194,44,44,.4)">
+              <span style="width:6px; height:6px; border-radius:50%; background:#fff; animation:wm-pulse 2s infinite"></span>
+              Vídeo Oficial · Banda Completa
+            </div>
+
+            <button data-wm-play="banda" type="button" aria-label="Assistir ao vídeo da Banda Completa"
+              style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; width:100%; height:100%; border:0; background:transparent; cursor:pointer; color:#fff; font:inherit">
+              <span
+                style="display:flex; align-items:center; justify-content:center; width:84px; height:84px; border-radius:50%; background:rgba(194,44,44,.94); box-shadow:0 0 50px rgba(194,44,44,.6); transition:transform .35s cubic-bezier(.16,1,.3,1)">
+                <svg width="26" height="30" viewBox="0 0 26 30" fill="none" aria-hidden="true">
+                  <path d="M25 15 0 30V0l25 15Z" fill="#fff" />
+                </svg>
+              </span>
+              <span
+                style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:rgba(255,255,255,.85)">Assistir
+                agora</span>
+            </button>
+          </div>
+
+          <!-- Carrossel Banda Completa -->
+          <div style="position:relative; margin-top:22px">
+            <button data-wm-prev="banda" type="button" aria-label="Vídeos anteriores"
+              style="position:absolute; left:-21px; top:50%; z-index:4; transform:translateY(-50%); display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,.14); background:rgba(9,9,11,.86); backdrop-filter:blur(10px); color:#fff; cursor:pointer; transition:border-color .2s ease"
+              style-hover="border-color:#C22C2C">
+              <svg width="9" height="15" viewBox="0 0 9 15" fill="none" aria-hidden="true">
+                <path d="M8 1 1.5 7.5 8 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+            <button data-wm-next="banda" type="button" aria-label="Próximos vídeos"
+              style="position:absolute; right:-21px; top:50%; z-index:4; transform:translateY(-50%); display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,.14); background:rgba(9,9,11,.86); backdrop-filter:blur(10px); color:#fff; cursor:pointer; transition:border-color .2s ease"
+              style-hover="border-color:#C22C2C">
+              <svg width="9" height="15" viewBox="0 0 9 15" fill="none" aria-hidden="true">
+                <path d="m1 1 6.5 6.5L1 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div data-wm-track="banda" class="wm-track"
+              style="display:flex; gap:14px; overflow-x:auto; scroll-behavior:smooth; scroll-snap-type:x mandatory; padding:4px 2px 14px; -webkit-overflow-scrolling:touch">
+              <sc-for list="{{ videos }}" as="v" hint-placeholder-count="6">
+                <button data-wm-thumb="{{ v.id }}" type="button"
+                  style="position:relative; flex:0 0 232px; scroll-snap-align:start; aspect-ratio:16/9; border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#0b0b0d; padding:0; cursor:pointer"
+                  style-hover="border-color:rgba(194,44,44,.6)">
+                  <img src="https://i.ytimg.com/vi/{{ v.id }}/mqdefault.jpg" alt="Trecho de show da Walkmachine"
+                    loading="lazy"
+                    style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.82; transition:opacity .35s ease, transform .6s cubic-bezier(.16,1,.3,1)" />
+                  <span
+                    style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.72))"></span>
+                  <span
+                    style="position:absolute; right:8px; bottom:8px; padding:3px 8px; border-radius:6px; background:rgba(9,9,11,.86); font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.06em; color:#f0f0f2">{{
+                    v.dur }}</span>
+                </button>
+              </sc-for>
+            </div>
+            <div
+              style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; margin-top:10px">
+              <div
+                style="display:flex; align-items:center; gap:12px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#c4c4cc">
+                <span style="width:18px; height:1px; background:rgba(255,255,255,.22)"></span><span>Trechos de shows · Playlist Banda Completa (41 vídeos)</span>
+              </div>
+              <a href="https://www.youtube.com/playlist?list=PL9vMcH7Da0ZBAPhJgGoynAlzgNT56qkUK" target="_blank" rel="noreferrer"
+                style="display:inline-flex; align-items:center; gap:6px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#ff6b6b; text-decoration:none"
+                style-hover="color:#fff;text-decoration:underline">
+                <span>Ver playlist completa no YouTube</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>
+              </a>
+            </div>
           </div>
         </div>
+
+        <!-- Divisor elegante entre as seções -->
+        <div style="margin:80px 0 64px; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,.12) 20%,rgba(47,111,224,.4) 50%,rgba(255,255,255,.12) 80%,transparent)"></div>
+
+        <!-- ==================== BLOCO 2: TRIO ACÚSTICO ==================== -->
+        <div id="video-trio" style="position:relative">
+          <div
+            style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:28px">
+            <div>
+              <div data-wm-reveal=""
+                style="display:flex; align-items:center; gap:12px; margin-bottom:20px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:#2F6FE0">
+                <span style="width:24px; height:1px; background:#2F6FE0"></span><span>Formato Acústico</span>
+              </div>
+              <h3 data-wm-reveal=""
+                style="margin:0 0 12px; font-family:'Barlow Condensed',Impact,sans-serif; font-weight:600; font-size:clamp(30px,4vw,52px); line-height:1.04; letter-spacing:-.03em; text-transform:uppercase; background:linear-gradient(180deg,#ffffff,#a1a1aa 62%,#e4e4e7); -webkit-background-clip:text; background-clip:text; color:transparent">
+                Trio Acústico Walkmachine</h3>
+              <p data-wm-reveal="" style="margin:0; max-width:62ch; font-size:15px; line-height:1.6; color:#c4c4cc">
+                Voz, violão, contrabaixo/guitarra e percussão com arranjos intimistas e alta energia — o formato perfeito para cerimônias, recepções, festas e pubs com volume controlado.</p>
+            </div>
+            <a data-wm-reveal="" href="https://www.youtube.com/playlist?list=PL9vMcH7Da0ZC4L0vWcxKdVCA2wJnNGk7A" target="_blank" rel="noreferrer"
+              style="display:inline-flex; align-items:center; gap:8px; padding:12px 24px; border-radius:999px; border:1px solid rgba(47,111,224,.4); background:rgba(47,111,224,.08); font-size:13px; font-weight:500; color:#fff; transition:all .25s ease"
+              style-hover="border-color:#2F6FE0;background:rgba(47,111,224,.2);box-shadow:0 0 24px rgba(47,111,224,.4)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              <span>Playlist Trio no YouTube</span>
+            </a>
+          </div>
+
+          <!-- Player Trio Acústico -->
+          <div data-wm-reveal="" data-wm-player="trio"
+            style="position:relative; aspect-ratio:16/9; border-radius:24px; overflow:hidden; border:1px solid rgba(255,255,255,.08); box-shadow:0 30px 80px rgba(0,0,0,.7); background:#000">
+            <img data-wm-poster="trio" src="https://i.ytimg.com/vi/ysT0-loO_lM/maxresdefault.jpg" alt="Trio Acústico Walkmachine ao vivo"
+              style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.65" />
+            <span data-wm-poster-veil=""
+              style="position:absolute; inset:0; background:radial-gradient(circle at 50% 45%,rgba(0,0,0,.15),rgba(0,0,0,.82))"></span>
+            
+            <div style="position:absolute; top:20px; left:20px; z-index:2; display:inline-flex; align-items:center; gap:8px; padding:7px 16px; border-radius:999px; background:rgba(47,111,224,.88); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.2); font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:#fff; box-shadow:0 4px 20px rgba(47,111,224,.4)">
+              <span style="width:6px; height:6px; border-radius:50%; background:#fff; animation:wm-pulse 2s infinite"></span>
+              Ao Vivo · Trio Acústico
+            </div>
+
+            <button data-wm-play="trio" type="button" aria-label="Assistir ao vídeo do Trio Acústico"
+              style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; width:100%; height:100%; border:0; background:transparent; cursor:pointer; color:#fff; font:inherit">
+              <span
+                style="display:flex; align-items:center; justify-content:center; width:84px; height:84px; border-radius:50%; background:rgba(47,111,224,.94); box-shadow:0 0 50px rgba(47,111,224,.6); transition:transform .35s cubic-bezier(.16,1,.3,1)">
+                <svg width="26" height="30" viewBox="0 0 26 30" fill="none" aria-hidden="true">
+                  <path d="M25 15 0 30V0l25 15Z" fill="#fff" />
+                </svg>
+              </span>
+              <span
+                style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:rgba(255,255,255,.85)">Assistir
+                agora</span>
+            </button>
+          </div>
+
+          <!-- Carrossel Trio Acústico -->
+          <div style="position:relative; margin-top:22px">
+            <button data-wm-prev="trio" type="button" aria-label="Vídeos anteriores do Trio"
+              style="position:absolute; left:-21px; top:50%; z-index:4; transform:translateY(-50%); display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,.14); background:rgba(9,9,11,.86); backdrop-filter:blur(10px); color:#fff; cursor:pointer; transition:border-color .2s ease"
+              style-hover="border-color:#2F6FE0">
+              <svg width="9" height="15" viewBox="0 0 9 15" fill="none" aria-hidden="true">
+                <path d="M8 1 1.5 7.5 8 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+            <button data-wm-next="trio" type="button" aria-label="Próximos vídeos do Trio"
+              style="position:absolute; right:-21px; top:50%; z-index:4; transform:translateY(-50%); display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,.14); background:rgba(9,9,11,.86); backdrop-filter:blur(10px); color:#fff; cursor:pointer; transition:border-color .2s ease"
+              style-hover="border-color:#2F6FE0">
+              <svg width="9" height="15" viewBox="0 0 9 15" fill="none" aria-hidden="true">
+                <path d="m1 1 6.5 6.5L1 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div data-wm-track="trio" class="wm-track"
+              style="display:flex; gap:14px; overflow-x:auto; scroll-behavior:smooth; scroll-snap-type:x mandatory; padding:4px 2px 14px; -webkit-overflow-scrolling:touch">
+              <sc-for list="{{ videosTrio }}" as="v" hint-placeholder-count="6">
+                <button data-wm-thumb="{{ v.id }}" type="button"
+                  style="position:relative; flex:0 0 232px; scroll-snap-align:start; aspect-ratio:16/9; border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#0b0b0d; padding:0; cursor:pointer"
+                  style-hover="border-color:rgba(47,111,224,.6)">
+                  <img src="https://i.ytimg.com/vi/{{ v.id }}/mqdefault.jpg" alt="{{ v.titulo }}"
+                    loading="lazy"
+                    style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.82; transition:opacity .35s ease, transform .6s cubic-bezier(.16,1,.3,1)" />
+                  <span
+                    style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.72))"></span>
+                  <span
+                    style="position:absolute; right:8px; bottom:8px; padding:3px 8px; border-radius:6px; background:rgba(9,9,11,.86); font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.06em; color:#f0f0f2">{{
+                    v.dur }}</span>
+                </button>
+              </sc-for>
+            </div>
+            <div
+              style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; margin-top:10px">
+              <div
+                style="display:flex; align-items:center; gap:12px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#c4c4cc">
+                <span style="width:18px; height:1px; background:rgba(255,255,255,.22)"></span><span>Trechos de shows · Playlist Trio Acústico (8 vídeos)</span>
+              </div>
+              <a href="https://www.youtube.com/playlist?list=PL9vMcH7Da0ZC4L0vWcxKdVCA2wJnNGk7A" target="_blank" rel="noreferrer"
+                style="display:inline-flex; align-items:center; gap:6px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#2F6FE0; text-decoration:none"
+                style-hover="color:#fff;text-decoration:underline">
+                <span>Ver playlist acústica no YouTube</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
       </section>
 
       <!-- Instagram Feed da Banda Walkmachine -->
@@ -2016,15 +2177,12 @@ class Component extends DCLogic {
   }// Carrossel de videos: a playlist do YouTube e carregada como iframe apenas
   // depois do clique, para nao pesar o primeiro carregamento da pagina.
   initVideos() {
-    const box = document.querySelector("[data-wm-player]");
-    const track = document.querySelector("[data-wm-track]");
-    if (!box || !track) return;
-
     const playlists = {
       banda: {
         listId: "PL9vMcH7Da0ZBAPhJgGoynAlzgNT56qkUK",
-        label: "Trechos de shows · playlist Banda Completa (40 vídeos)",
+        accentColor: "#C22C2C",
         videos: [
+          { id: "oXToA2oo8HQ", dur: "3:31", titulo: "Walkmachine Banda — O Rock que transforma seu evento em uma experiência única!" },
           { id: "japEfLFX23U", dur: "3:03", titulo: "Walkmachine ao vivo" },
           { id: "fyh4OYJn2h0", dur: "1:30", titulo: "Trecho show Walkmachine" },
           { id: "HLhp0Y3mlGs", dur: "1:40", titulo: "Walkmachine ao vivo" },
@@ -2036,12 +2194,40 @@ class Component extends DCLogic {
           { id: "htlByHNNrr4", dur: "2:15", titulo: "Trecho de show" },
           { id: "f-af-VQRlAw", dur: "0:51", titulo: "Walkmachine ao vivo" },
           { id: "2ZpaLdV5-WQ", dur: "1:58", titulo: "Trecho de show" },
-          { id: "aebxljsHDmc", dur: "2:29", titulo: "Walkmachine ao vivo" }
+          { id: "aebxljsHDmc", dur: "2:29", titulo: "Walkmachine ao vivo" },
+          { id: "9S9oCATMTno", dur: "2:37", titulo: "Trecho de show" },
+          { id: "DxkrYDj4Hfs", dur: "10:34", titulo: "Walkmachine ao vivo" },
+          { id: "BRFeZwPzPO0", dur: "1:56", titulo: "Trecho de show" },
+          { id: "liViXZTilSQ", dur: "1:56", titulo: "Walkmachine ao vivo" },
+          { id: "EXzHFwIkCT0", dur: "4:02", titulo: "Walkmachine ao vivo" },
+          { id: "JlkwI6Xc7-I", dur: "1:28", titulo: "Trecho de show" },
+          { id: "S7Zcv-j00u4", dur: "0:59", titulo: "Trecho de show" },
+          { id: "wr-QKsb7pQQ", dur: "0:59", titulo: "Trecho de show" },
+          { id: "Mt6eYqzSdnE", dur: "0:49", titulo: "Trecho de show" },
+          { id: "MU8I-PG-uMI", dur: "0:47", titulo: "Trecho de show" },
+          { id: "4JfFAG7une4", dur: "0:47", titulo: "Trecho de show" },
+          { id: "dU6vI8xYlGU", dur: "0:43", titulo: "Trecho de show" },
+          { id: "GkWE4hjzAJY", dur: "0:39", titulo: "Trecho de show" },
+          { id: "M28pGFeLunw", dur: "0:38", titulo: "Trecho de show" },
+          { id: "NW5v0G7GhDc", dur: "0:37", titulo: "Trecho de show" },
+          { id: "hsOU1S14ktk", dur: "0:34", titulo: "Trecho de show" },
+          { id: "KaopAwl_O1w", dur: "0:33", titulo: "Trecho de show" },
+          { id: "KGj-ZpVkP4w", dur: "0:32", titulo: "Trecho de show" },
+          { id: "_SwYnpImlLo", dur: "0:31", titulo: "Trecho de show" },
+          { id: "E3JfITM4yFo", dur: "0:30", titulo: "Trecho de show" },
+          { id: "pxpzF0GsVBw", dur: "0:27", titulo: "Trecho de show" },
+          { id: "Uq3lhQgmh_o", dur: "0:26", titulo: "Trecho de show" },
+          { id: "yaFdjWwMz8o", dur: "0:24", titulo: "Trecho de show" },
+          { id: "_-gfUXlhgeI", dur: "0:24", titulo: "Trecho de show" },
+          { id: "BUTXaQm7kF4", dur: "0:23", titulo: "Trecho de show" },
+          { id: "kFM_m55bzDQ", dur: "0:23", titulo: "Trecho de show" },
+          { id: "oUP8GtEsE5U", dur: "0:21", titulo: "Trecho de show" },
+          { id: "56h3lj3O7ss", dur: "0:17", titulo: "Trecho de show" }
         ]
       },
       trio: {
         listId: "PL9vMcH7Da0ZC4L0vWcxKdVCA2wJnNGk7A",
-        label: "Trechos de shows · playlist Trio Acústico Walkmachine",
+        accentColor: "#2F6FE0",
         videos: [
           { id: "ysT0-loO_lM", dur: "1:35", titulo: "Zóio de Lula (Charlie Brown Jr)" },
           { id: "ZU6TSrvQIfk", dur: "1:40", titulo: "What's Up (4 Non Blondes)" },
@@ -2055,44 +2241,76 @@ class Component extends DCLogic {
       }
     };
 
-    let activeCat = "banda";
-    let current = playlists.banda.videos[0].id;
+    const playerInstances = {};
 
-    const poster = box.querySelector("[data-wm-poster]");
-    const setPoster = (id) => { if (poster) poster.src = "https://i.ytimg.com/vi/" + id + "/maxresdefault.jpg"; };
-
-    const mark = (id) => {
-      const thumbs = Array.from(track.querySelectorAll("[data-wm-thumb]"));
-      thumbs.forEach((t) => {
-        const isCurrent = t.getAttribute("data-wm-thumb") === id;
-        t.setAttribute("aria-current", String(isCurrent));
-        t.style.borderColor = isCurrent ? "#2F6FE0" : "rgba(255,255,255,.08)";
-        t.style.boxShadow = isCurrent ? "0 0 20px rgba(47,111,224,.5)" : "none";
+    const stopOtherPlayers = (currentKey) => {
+      Object.keys(playerInstances).forEach((k) => {
+        if (k !== currentKey && playerInstances[k]) {
+          playerInstances[k].reset();
+        }
       });
     };
 
-    const play = (id) => {
-      if (window.__wmBgAudio) window.__wmBgAudio.pause();
-      current = id;
-      mark(id);
-      let frame = box.querySelector("iframe");
-      const listId = playlists[activeCat].listId;
-      const src = "https://www.youtube-nocookie.com/embed/" + id + "?list=" + listId + "&autoplay=1&rel=0&modestbranding=1&playsinline=1";
-      if (!frame) {
-        Array.from(box.children).forEach((c) => { c.style.display = "none"; });
-        frame = document.createElement("iframe");
-        frame.setAttribute("title", "Vídeos da banda Walkmachine");
-        frame.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
-        frame.setAttribute("allowfullscreen", "");
-        frame.setAttribute("loading", "lazy");
-        frame.style.cssText = "position:absolute; inset:0; width:100%; height:100%; border:0";
-        box.appendChild(frame);
-      }
-      frame.src = src;
-    };
+    const setupSection = (key) => {
+      const data = playlists[key];
+      const box = document.querySelector(`[data-wm-player="${key}"]`);
+      const track = document.querySelector(`[data-wm-track="${key}"]`);
+      if (!box || !track) return null;
 
-    const renderThumbs = (cat) => {
-      const data = playlists[cat];
+      const poster = box.querySelector(`[data-wm-poster="${key}"]`);
+      const playBtn = box.querySelector(`[data-wm-play="${key}"]`);
+      const prev = document.querySelector(`[data-wm-prev="${key}"]`);
+      const next = document.querySelector(`[data-wm-next="${key}"]`);
+
+      let currentId = data.videos[0].id;
+
+      const setPoster = (id) => {
+        if (poster) poster.src = "https://i.ytimg.com/vi/" + id + "/maxresdefault.jpg";
+      };
+
+      const mark = (id) => {
+        const thumbs = Array.from(track.querySelectorAll("[data-wm-thumb]"));
+        thumbs.forEach((t) => {
+          const isCurrent = t.getAttribute("data-wm-thumb") === id;
+          t.setAttribute("aria-current", String(isCurrent));
+          t.style.borderColor = isCurrent ? data.accentColor : "rgba(255,255,255,.08)";
+          t.style.boxShadow = isCurrent ? `0 0 20px ${data.accentColor}80` : "none";
+        });
+      };
+
+      const play = (id) => {
+        if (window.__wmBgAudio) window.__wmBgAudio.pause();
+        stopOtherPlayers(key);
+        currentId = id;
+        mark(id);
+
+        let frame = box.querySelector("iframe");
+        const listId = data.listId;
+        const src = "https://www.youtube-nocookie.com/embed/" + id + "?list=" + listId + "&autoplay=1&rel=0&modestbranding=1&playsinline=1";
+        if (!frame) {
+          Array.from(box.children).forEach((c) => { c.style.display = "none"; });
+          frame = document.createElement("iframe");
+          frame.setAttribute("title", "Vídeos da banda Walkmachine");
+          frame.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
+          frame.setAttribute("allowfullscreen", "");
+          frame.setAttribute("loading", "lazy");
+          frame.style.cssText = "position:absolute; inset:0; width:100%; height:100%; border:0";
+          box.appendChild(frame);
+        }
+        frame.src = src;
+      };
+
+      const reset = () => {
+        const frame = box.querySelector("iframe");
+        if (frame) {
+          frame.remove();
+          Array.from(box.children).forEach((c) => { c.style.display = ""; });
+        }
+      };
+
+      playerInstances[key] = { play, reset };
+
+      // Render thumbs
       track.innerHTML = data.videos.map((v) => `
         <button data-wm-thumb="${v.id}" type="button" aria-label="${v.titulo}" style="position:relative; flex:0 0 232px; scroll-snap-align:start; aspect-ratio:16/9; border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#0b0b0d; padding:0; cursor:pointer" class="wm-video-thumb">
           <img src="https://i.ytimg.com/vi/${v.id}/mqdefault.jpg" alt="${v.titulo}" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.82; transition:opacity .35s ease, transform .6s cubic-bezier(.16,1,.3,1)" />
@@ -2101,66 +2319,35 @@ class Component extends DCLogic {
         </button>
       `).join("");
 
-      const metaLabel = document.querySelector("[data-wm-playlist-label]");
-      if (metaLabel) metaLabel.textContent = data.label;
-
       const thumbs = Array.from(track.querySelectorAll("[data-wm-thumb]"));
       thumbs.forEach((t) => t.addEventListener("click", () => play(t.getAttribute("data-wm-thumb"))));
-      mark(current);
+
+      setPoster(currentId);
+      mark(currentId);
+
+      if (playBtn) playBtn.addEventListener("click", () => play(currentId));
+
+      const step = () => Math.max(240, Math.round(track.clientWidth * 0.8));
+      if (prev) prev.addEventListener("click", () => track.scrollBy({ left: -step(), behavior: "smooth" }));
+      if (next) next.addEventListener("click", () => track.scrollBy({ left: step(), behavior: "smooth" }));
+
+      const syncArrows = () => {
+        const max = track.scrollWidth - track.clientWidth - 4;
+        if (prev) prev.style.opacity = track.scrollLeft <= 4 ? "0.35" : "1";
+        if (next) next.style.opacity = track.scrollLeft >= max ? "0.35" : "1";
+      };
+      track.addEventListener("scroll", syncArrows);
+      syncArrows();
+      return setInterval(syncArrows, 800);
     };
 
-    // Tabs setup
-    const tabBtns = document.querySelectorAll("[data-wm-video-tab]");
-    tabBtns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const cat = btn.getAttribute("data-wm-video-tab");
-        if (cat === activeCat) return;
-        activeCat = cat;
-
-        tabBtns.forEach((b) => {
-          const isActive = b === btn;
-          b.setAttribute("aria-selected", String(isActive));
-          b.style.background = isActive ? "#2F6FE0" : "rgba(255,255,255,.03)";
-          b.style.borderColor = isActive ? "#2F6FE0" : "rgba(255,255,255,.12)";
-          b.style.color = isActive ? "#ffffff" : "#c4c4cc";
-          b.style.boxShadow = isActive ? "0 0 24px rgba(47,111,224,.5)" : "none";
-        });
-
-        current = playlists[cat].videos[0].id;
-        setPoster(current);
-        renderThumbs(cat);
-        track.scrollTo({ left: 0, behavior: "smooth" });
-
-        const frame = box.querySelector("iframe");
-        if (frame) play(current);
-      });
-    });
-
-    renderThumbs("banda");
-    mark(current);
-    setPoster(current);
-
-    const playBtn = box.querySelector("[data-wm-play]");
-    if (playBtn) playBtn.addEventListener("click", () => play(current));
-
-    const step = () => Math.max(240, Math.round(track.clientWidth * 0.8));
-    const prev = document.querySelector("[data-wm-prev]");
-    const next = document.querySelector("[data-wm-next]");
-    if (prev) prev.addEventListener("click", () => track.scrollBy({ left: -step(), behavior: "smooth" }));
-    if (next) next.addEventListener("click", () => track.scrollBy({ left: step(), behavior: "smooth" }));
-
-    const syncArrows = () => {
-      const max = track.scrollWidth - track.clientWidth - 4;
-      if (prev) prev.style.opacity = track.scrollLeft <= 4 ? "0.35" : "1";
-      if (next) next.style.opacity = track.scrollLeft >= max ? "0.35" : "1";
-    };
-    track.addEventListener("scroll", syncArrows);
-    syncArrows();
-    this.videoArrowTimer = setInterval(syncArrows, 800);
+    const timer1 = setupSection("banda");
+    const timer2 = setupSection("trio");
+    this.videoArrowTimers = [timer1, timer2].filter(Boolean);
   }
 
   componentWillUnmount() {
-    clearInterval(this.videoArrowTimer);
+    if (this.videoArrowTimers) this.videoArrowTimers.forEach(clearInterval);
     clearInterval(this.sweepTimer);
     clearInterval(this.parallaxTimer);
     if (this.onPrism) window.removeEventListener("wm-prism-ready", this.onPrism);
@@ -2296,20 +2483,37 @@ class Component extends DCLogic {
         { id: "wm2-hero-4", nome: "Natan Campos", papel: "Guitarra solo", img: "assets/musicos/natan.webp" },
         { id: "wm2-hero-5", nome: "Marcos Vinicius", papel: "Teclado & Backing", img: "assets/musicos/marcos.webp" }
       ],
+      clientesBares: [
+        { id: "cl-tatu", nome: "Tatu Bola Bar e Grelha", img: "assets/clientes/tatu-bola.webp" },
+        { id: "cl-parrilha", nome: "Parrilha Savassi 158", img: "assets/clientes/parrilha-savassi.webp" },
+        { id: "cl-porks", nome: "Porks Porco & Chope", img: "assets/clientes/porks.webp" },
+        { id: "cl-mercado", nome: "Circuito Mercados de Origem", img: "assets/clientes/mercado-origem.webp" },
+        { id: "cl-meubhar", nome: "Meu bHar Sion", img: "assets/clientes/meu-bhar.webp" },
+        { id: "cl-colder", nome: "Colder Pub", img: "assets/clientes/colder-pub.webp" },
+        { id: "cl-curral", nome: "Curral Carnes & Emporio", img: "assets/clientes/curral.webp" },
+        { id: "cl-rotta", nome: "Garagem Rotta n Roll", img: "assets/clientes/rotta-n-roll.webp" },
+        { id: "cl-garagge", nome: "Garagge Vintage", img: "assets/clientes/garagge-vintage.webp" },
+        { id: "cl-motocas", nome: "US Motocas Point Bar", img: "assets/clientes/us-motocas.webp" },
+        { id: "cl-cachoeira", nome: "Cachoeira Dourada", img: "assets/clientes/cachoeira-dourada.webp" }
+      ],
+      clientesEmpresas: [
+        { id: "cl-sest", nome: "SEST SENAT", subtitulo: "Serviço Social do Transporte e SENAT", img: "assets/clientes/sest-senat.webp" },
+        { id: "cl-retiro", nome: "Retiro das Pedras", subtitulo: "Condomínio e Associação", img: "assets/clientes/retiro-das-pedras.webp" }
+      ],
       clienteSlots: [
-        { id: "cl-1", nome: "Colder Pub", img: "assets/clientes/colder-pub.webp" },
-        { id: "cl-2", nome: "Tatu Bola Bar e Grelha", img: "assets/clientes/tatu-bola.webp" },
-        { id: "cl-3", nome: "Porks Porco & Chope", img: "assets/clientes/porks.webp" },
-        { id: "cl-4", nome: "Curral Carnes & Emporio", img: "assets/clientes/curral.webp" },
-        { id: "cl-5", nome: "Garagem Rotta n Roll", img: "assets/clientes/rotta-n-roll.webp" },
-        { id: "cl-6", nome: "Garagge Vintage", img: "assets/clientes/garagge-vintage.webp" },
-        { id: "cl-7", nome: "Circuito Mercados de Origem", img: "assets/clientes/mercado-origem.webp" },
-        { id: "cl-8", nome: "Retiro das Pedras", img: "assets/clientes/retiro-das-pedras.webp" },
-        { id: "cl-9", nome: "US Motocas Point Bar", img: "assets/clientes/us-motocas.webp" },
-        { id: "cl-10", nome: "Meu bHar Sion", img: "assets/clientes/meu-bhar.webp" },
-        { id: "cl-11", nome: "Cachoeira Dourada", img: "assets/clientes/cachoeira-dourada.webp" },
-        { id: "cl-12", nome: "SEST SENAT", img: "assets/clientes/sest-senat.webp" },
-        { id: "cl-13", nome: "Parrilha Savassi", img: "assets/clientes/parrilha-savassi.webp" }
+        { id: "cl-tatu", nome: "Tatu Bola Bar e Grelha", img: "assets/clientes/tatu-bola.webp" },
+        { id: "cl-parrilha", nome: "Parrilha Savassi 158", img: "assets/clientes/parrilha-savassi.webp" },
+        { id: "cl-porks", nome: "Porks Porco & Chope", img: "assets/clientes/porks.webp" },
+        { id: "cl-mercado", nome: "Circuito Mercados de Origem", img: "assets/clientes/mercado-origem.webp" },
+        { id: "cl-meubhar", nome: "Meu bHar Sion", img: "assets/clientes/meu-bhar.webp" },
+        { id: "cl-colder", nome: "Colder Pub", img: "assets/clientes/colder-pub.webp" },
+        { id: "cl-curral", nome: "Curral Carnes & Emporio", img: "assets/clientes/curral.webp" },
+        { id: "cl-rotta", nome: "Garagem Rotta n Roll", img: "assets/clientes/rotta-n-roll.webp" },
+        { id: "cl-garagge", nome: "Garagge Vintage", img: "assets/clientes/garagge-vintage.webp" },
+        { id: "cl-motocas", nome: "US Motocas Point Bar", img: "assets/clientes/us-motocas.webp" },
+        { id: "cl-cachoeira", nome: "Cachoeira Dourada", img: "assets/clientes/cachoeira-dourada.webp" },
+        { id: "cl-sest", nome: "SEST SENAT", img: "assets/clientes/sest-senat.webp" },
+        { id: "cl-retiro", nome: "Retiro das Pedras", img: "assets/clientes/retiro-das-pedras.webp" }
       ],
       videosTrio: [
         { id: "ysT0-loO_lM", dur: "1:35", titulo: "Zóio de Lula (Charlie Brown Jr)" },
@@ -2322,6 +2526,7 @@ class Component extends DCLogic {
         { id: "KwJTNL2nWVo", dur: "1:45", titulo: "Por Você (Barão Vermelho)" }
       ],
       videos: [
+        { id: "oXToA2oo8HQ", dur: "3:31" },
         { id: "japEfLFX23U", dur: "3:03" },
         { id: "fyh4OYJn2h0", dur: "1:30" },
         { id: "HLhp0Y3mlGs", dur: "1:40" },
